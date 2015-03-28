@@ -1,2 +1,9 @@
 # JSE_OkCupid
-Journal of Statistical Education Paper on Using OkCupid Data for Data Science Courses
+
+Data and code for ``Using OkCupid Data for Data Science Courses'':
+
+* JSE.bib:  bibliography file
+* JSE.pdf:  PDF of document
+* JSE.Rnw:  R Sweave document
+* okcupid_codebook.txt:  codebook for all variables
+* profiles.csv.zip:  profile CSV file (zipped)
