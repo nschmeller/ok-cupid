@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+*.Rproj
+profiles.20120630.csv
+*.synctex.gz
+*.log
+other.R
