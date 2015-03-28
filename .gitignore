@@ -7,4 +7,6 @@ profiles.20120630.csv
 *.log
 other.R
 JSE.Rnw
+*-concordance.tex
 cache/*
+figure/*
