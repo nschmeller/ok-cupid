@@ -30,6 +30,7 @@ OkCupid Profile Data for Introductory Data Science Classes\\
 
 
 \begin{abstract}
+
 \end{abstract}
 
 
@@ -441,13 +442,13 @@ Mathematics Department\\
 Reed College\\
 3203 SE Woodstock Blvd\\
 Portland, OR 97202\\
-\href{mailto:albert.kim@reed.edu}{albert.kim@reed.edu}\\
+\url{albert.kim@reed.edu}\\
 
 \noindent Adriana Escobedo-Land\\
 Reed College\\
 3203 SE Woodstock Blvd\\
 Portland, OR 97202\\
-\href{mailto:escobad@reed.edu}{escobad@reed.edu}
+\url{escobad@reed.edu}
 
 
 
