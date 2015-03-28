@@ -67,6 +67,7 @@ OkCupid Profile Data for Introductory Data Science Classes\\
 
 
 \begin{abstract}
+
 \end{abstract}
 
 
@@ -255,9 +256,9 @@ However, when it comes to dating we can't just consider the \textbf{marginal dis
 \begin{verbatim}
 ##            sex
 ## orientation     f     m
-##    bisexual 0.078 0.018
-##    gay      0.065 0.110
-##    straight 0.857 0.871
+##    bisexual 0.083 0.022
+##    gay      0.066 0.111
+##    straight 0.851 0.867
 \end{verbatim}
 \begin{alltt}
 \hlstd{sex.by.orientation} \hlkwb{<-} \hlkwd{with}\hlstd{(profiles,} \hlkwd{table}\hlstd{(sex, orientation))}
@@ -286,7 +287,7 @@ We now proceed with the \textit{chi-square tests for independence} to perform on
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  sex.by.orientation
-## X-squared = 154, df = 2, p-value < 2.2e-16
+## X-squared = 1495, df = 2, p-value < 2.2e-16
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -359,17 +360,17 @@ We ask:  Do men and women OkCupid users use words at different rates in their es
 We test out various preconceptions of word use between any of the categorical variables:  sex, sexual orientation, etc.  For example, in Table \ref{word_use_by_sex} we compare the proportion of use of words in essays split by sex.
 
 % latex table generated in R 3.1.2 by xtable 1.7-4 package
-% Fri Mar 27 16:16:58 2015
+% Sat Mar 28 02:17:55 2015
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrr}
   \hline
 query & female & male \\ 
   \hline
-travel & 0.387 & 0.293 \\ 
-  food & 0.655 & 0.602 \\ 
-  wine & 0.195 & 0.116 \\ 
-  beer & 0.088 & 0.105 \\ 
+travel & 0.386 & 0.299 \\ 
+  food & 0.652 & 0.601 \\ 
+  wine & 0.201 & 0.117 \\ 
+  beer & 0.087 & 0.109 \\ 
    \hline
 \end{tabular}
 \caption{Proportion of use of words in essays split by sex.} 
@@ -388,9 +389,9 @@ We also verify the co-occurence of words:
 \end{alltt}
 \begin{verbatim}
 ##           has.wine
-## has.travel TRUE FALSE
-##      TRUE   461  1522
-##      FALSE  423  3589
+## has.travel  TRUE FALSE
+##      TRUE   4602 15445
+##      FALSE  4443 35456
 \end{verbatim}
 \begin{alltt}
 \hlkwd{mosaicplot}\hlstd{(}\hlkwd{tally}\hlstd{(}\hlopt{~}\hlstd{has.travel} \hlopt{+} \hlstd{has.wine,} \hlkwc{data}\hlstd{=profiles),} \hlkwc{main}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{"Travel"}\hlstd{,}
@@ -423,13 +424,13 @@ And finally we evaluate the statistical significance of the difference in the us
 ## 	correction
 ## 
 ## data:  x and n
-## X-squared = 2, df = 1, p-value = 0.1546
+## X-squared = 13, df = 1, p-value = 0.0002929
 ## alternative hypothesis: two.sided
 ## 95 percent confidence interval:
-##  -0.0166  0.0024
+##  -0.0085 -0.0026
 ## sample estimates:
 ## prop 1 prop 2 
-##  0.030  0.037
+##  0.031  0.036
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -447,28 +448,28 @@ And finally, consider the following fun exercise: the words in the male's top 50
 \hlkwd{setdiff}\hlstd{(male.words[}\hlnum{1}\hlopt{:}\hlnum{500}\hlstd{], female.words[}\hlnum{1}\hlopt{:}\hlnum{500}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-##  [1] "words"    "his"      "company"  ","        "video"    "sports"  
-##  [7] "else"     "computer" "/"        "john"     "future"   "world."  
-## [13] "internet" "well,"    "run"      "three"    "bar"      "work."   
-## [19] "short"    "away"     "business" "until"    "side"     "us"      
-## [25] "found"    "went"     "science"  "type"     "here."    "isn't"   
-## [31] "started"  "stuff."   "career"   "well."    "more."    "show,"   
-## [37] "serious"  "star"     "said"     "to."      "women"    "couple"
+##  [1] ","         "video"     "company"   "sports"    "/"        
+##  [6] "internet"  "future"    "computer"  "star"      "well,"    
+## [11] "well."     "away"      "john"      "until"     "business" 
+## [16] "us"        "type"      "couple"    "generally" "2"        
+## [21] "more."     "went"      "bar"       "science"   "woman"    
+## [26] "work."     "started"   "does"      "here."     "found"    
+## [31] "three"     "lost"      "means"     "do."       "become"   
+## [36] "run"       "that,"
 \end{verbatim}
 \begin{alltt}
 \hlcom{# Words in the male top 500 that weren't in the women's top 500}
 \hlkwd{setdiff}\hlstd{(female.words[}\hlnum{1}\hlopt{:}\hlnum{500}\hlstd{], male.words[}\hlnum{1}\hlopt{:}\hlnum{500}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-##  [1] "loving"     "hair"       "dog"        "seeing"     "dancing,"  
-##  [6] ";)"         "appreciate" "kinds"      "laughing"   "red"       
-## [11] "passionate" "hate"       "laugh."     "love,"      "beautiful" 
-## [16] "kids"       "david"      "she"        "please"     "crazy"     
-## [21] "change"     "2"          "laugh,"     "hiking,"    "smile."    
-## [26] "men"        "adventure"  "except"     "sex"        "met"       
-## [31] "passion"    "willing"    "does"       "become"     "local"     
-## [36] "nature"     "healthy"    "myself."    "you'll"     "beach"     
-## [41] "dating"     "human"
+##  [1] "loving"      "dancing,"    "love,"       "appreciate"  "dog"        
+##  [6] "hair"        "beautiful"   "laughing"    "passionate"  "red"        
+## [11] "cooking,"    ";)"          "laugh."      "please"      "kids"       
+## [16] "local"       "drinking"    "kinds"       "family."     "healthy"    
+## [21] "adventure"   "explore"     "laugh,"      "men"         "smile."     
+## [26] "comfortable" "crazy"       "nature"      "hiking,"     "day."       
+## [31] "chocolate"   "huge"        "change"      "dating"      "sex"        
+## [36] "met"         "movies."
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -501,11 +502,9 @@ The final exercise provides an opportunity to fit a predicitive model for sex us
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{profiles} \hlkwb{<-} \hlkwd{filter}\hlstd{(profiles, height}\hlopt{>=}\hlnum{55} \hlopt{&} \hlstd{height} \hlopt{<=}\hlnum{80}\hlstd{)}
-\hlstd{profiles} \hlkwb{<-} \hlkwd{sample_n}\hlstd{(profiles, n}\hlopt{*}\hlnum{0.1}\hlstd{)}
+\hlstd{profiles} \hlkwb{<-} \hlkwd{sample_n}\hlstd{(profiles,} \hlnum{5995}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Sample size (5994.6) greater than population size (5983). Do you want replace = TRUE?}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 \subsubsection{Exercise}
@@ -560,12 +559,12 @@ We fit both linear and logistic regression models using height as the sole predi
 \end{alltt}
 \begin{verbatim}
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   6.3836     0.0819    77.9   <2e-16 ***
-## height       -0.0876     0.0012   -73.1   <2e-16 ***
+## (Intercept)  6.32486    0.08170    77.4   <2e-16 ***
+## height      -0.08668    0.00119   -72.6   <2e-16 ***
 ## 
-## Residual standard error: 0.36 on 5982 degrees of freedom
-## Multiple R-squared:  0.472,	Adjusted R-squared:  0.472 
-## F-statistic: 5.34e+03 on 1 and 5982 DF,  p-value: <2e-16
+## Residual standard error: 0.36 on 5993 degrees of freedom
+## Multiple R-squared:  0.468,	Adjusted R-squared:  0.468 
+## F-statistic: 5.27e+03 on 1 and 5993 DF,  p-value: <2e-16
 \end{verbatim}
 \begin{alltt}
 \hlstd{b1} \hlkwb{<-} \hlkwd{coef}\hlstd{(linear.model)}
@@ -582,14 +581,14 @@ We fit both linear and logistic regression models using height as the sole predi
 \begin{verbatim}
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  45.5213     1.1566    39.4   <2e-16 ***
-## height       -0.6778     0.0171   -39.6   <2e-16 ***
+## (Intercept)  45.1589     1.1523    39.2   <2e-16 ***
+## height       -0.6724     0.0171   -39.4   <2e-16 ***
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 8075.5  on 5983  degrees of freedom
-## Residual deviance: 4381.5  on 5982  degrees of freedom
-## AIC: 4386
+##     Null deviance: 8096.2  on 5994  degrees of freedom
+## Residual deviance: 4423.5  on 5993  degrees of freedom
+## AIC: 4428
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -659,8 +658,8 @@ Looking at the histogram of fitted probabilities, we pick an appropriate decisio
 \begin{verbatim}
 ##      prediction
 ## truth FALSE TRUE
-##     0  3014  550
-##     1   449 1971
+##     0  3013  550
+##     1   442 1990
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -670,7 +669,7 @@ Looking at the histogram of fitted probabilities, we pick an appropriate decisio
 \subsubsection{Pedagogical Discussion}
 We find that the jump from linear to logistic regression is really hard for students to grasp.  For example, students often ask ``Why the $\log$ and $\exp$ functions?'', ``So we're not modelling $Y_i$ the outcome variable, we're modeling the probability $p_i$ that it equals 1?'', ``Why does the linear equation model the odds and not $p_i$ or $Y_i$''.  This exercise provides students to build up to the notion of logistic regression from the ground up and using data visualizations.  This example does however require familiarity with the \verb#ggplot2# package.  We feel this is a tool any data scientist primarily using \verb#R# should use, and have incorporated it heavily into our data science class.
 
-We also argue that it is insufficient to merely fit the model and interpret any regressions, we feel that students benefit by also having predictions explicitly made and evaluating the logistic model's predictive power.  Wee ask the students ``For what proportion of people did you guess wrong'' referring to the misclassification error rate, in this case 16.69\%.
+We also argue that it is insufficient to merely fit the model and interpret any regressions, we feel that students benefit by also having predictions explicitly made and evaluating the logistic model's predictive power.  Wee ask the students ``For what proportion of people did you guess wrong'' referring to the misclassification error rate, in this case 16.55\%.
 
 Further investigations including more than one predictor?  Perhaps using essay based information like in Section \ref{essays}?  What is our \textit{false positive rate} i.e. the proportion of user's who were predicted to be female who were actually male?  What is our \textit{false negative rate} i.e. the proportion of user's who were predicted to be male who were actually female?  If you wanted to be sure you predicted all women correctly, what decision threshold $p^*$ should you use?
 
@@ -732,13 +731,13 @@ Mathematics Department\\
 Reed College\\
 3203 SE Woodstock Blvd\\
 Portland, OR 97202\\
-\href{mailto:albert.kim@reed.edu}{albert.kim@reed.edu}\\
+\url{albert.kim@reed.edu}\\
 
 \noindent Adriana Escobedo-Land\\
 Reed College\\
 3203 SE Woodstock Blvd\\
 Portland, OR 97202\\
-\href{mailto:escobad@reed.edu}{escobad@reed.edu}
+\url{escobad@reed.edu}
 
 
 

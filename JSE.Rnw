@@ -73,7 +73,7 @@ Variables include typical user information (such as sex, sexual orientation, age
 
 <<echo=FALSE, cache=TRUE>>=
 # Note CSV file exists in directory one-level higher
-profiles <- read.csv(file="profiles2.csv", header=TRUE)
+profiles <- read.csv(file="profiles.csv", header=TRUE)
 n <- nrow(profiles)
 @
 
@@ -310,7 +310,7 @@ The final exercise provides an opportunity to fit a predicitive model for sex us
 
 <<cache=TRUE>>=
 profiles <- filter(profiles, height>=55 & height <=80)
-profiles <- sample_n(profiles, n*0.1)
+profiles <- sample_n(profiles, 5995)
 @
 
 \subsubsection{Exercise}
@@ -367,7 +367,7 @@ However, when predicting a user's gender, just using the fitted probabilities $\
 
 Looking at the histogram of fitted probabilities, we pick an appropriate decision threshold $p^*$ such that for all users who's $\widehat{p}_i > p^*$ we predict the user to be female.  We opt for $p^* = 0.5$ and highlight this in red in Figure \ref{fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table of the truth and predicted values to evaluate the model performance.
 
-<<cache=TRUE, fitted_values, fig.height=4, fig.width=6, fig.cap="Female Indicator vs Height", fig.align='center'>>=
+<<cache=TRUE, fitted_values, fig.height=3, fig.width=3, fig.cap="Female Indicator vs Height", fig.align='center'>>=
 profiles$p.hat <- fitted(logistic.model)
 hist(profiles$p.hat, xlab="p.hat", main="Fitted Probabilities of Being Female")
 abline(v=0.5, col="red", lwd=2)
