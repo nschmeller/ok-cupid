@@ -49,7 +49,7 @@
 
 \usepackage{alltt}
 \usepackage{fullpage, amssymb, url, natbib}
-\usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor = blue, 
+\usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor = blue,
 anchorcolor = blue]{hyperref}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
@@ -63,7 +63,7 @@ Adriana Escobedo-Land\\
 Reed College\\
 OkCupid Profile Data for Introductory Data Science Classes\\
 
-\noindent \textbf{Keywords}: OkCupid, online dating, data science, big data, 
+\noindent \textbf{Keywords}: OkCupid, online dating, data science, big data,
 
 
 \begin{abstract}
@@ -87,7 +87,7 @@ In light of the field of data science generating more interest in academia, indu
 
 It is in light of such discussions that we present this paper centering on user profile data scraped from the online dating website OkCupid.  Specifically, we describe the data set and present example analyses along with corresponding discussions of their pedagogical value given the aforementioned needs in statistics education.  The analyses presented in this paper were used in a variety of settings: as examples and exercises in introductory statistics classes and in statistical software tutorials.  However, we present the material in a manner best suited for use in a short introductory course to data science course using the R statistical software package~\cite{R}. This course provides students a glimpse of what data science is like, in particular the difficulties associated with using real and unprocessed data and the use computational tools and concepts such as data manipulation, data visualization and text mining.
 
-This paper does assume that students have.  
+This paper does assume that students have.
 
 
 
@@ -103,7 +103,7 @@ This paper does assume that students have.
 \section{Data}
 %
 %------------------------------------------------------------------------------
-The data consists of the public profiles of 59,946 OkCupid users. Each of these users had active profiles on June 26th 2012, were living within 25 miles of San Francisco, were online in the previous year and had at least one picture in their profile. Data was scraped using a Python script from users' public profiles on June 30th 2012; any non-publicly facing information such as messaging and login behavior was not accessible.  
+The data consists of the public profiles of 59,946 OkCupid users. Each of these users had active profiles on June 26th 2012, were living within 25 miles of San Francisco, were online in the previous year and had at least one picture in their profile. Data was scraped using a Python script from users' public profiles on June 30th 2012; any non-publicly facing information such as messaging and login behavior was not accessible.
 
 Variables include typical user information (such as sex, sexual orientation, age, and ethnicity) and lifestyle variables (such as diet, drinking habits, smoking habits).  Futhermore, text strings of the responses to the 10 essay questions posed to all OkCupid users are included as well, such as ``My Self Summary'', ``The first thing people usually notice about me...'', and ``On a typical Friday night I am...''  For a complete list of variables and more details, see the accompanying codebook \verb#okcupid_codebook.txt#.
 
@@ -164,7 +164,7 @@ We compare the distribution of OkCupid user's heights using histograms.  Height 
 \end{knitrout}
 \end{center}
 
-We observe that some of the heights are nonsensical, including heights of 1 inch and 95 inches (equaling 7'11'').  We deems heights between 55 and 80 inches to be reasonable, and while there is potential bias in discarding these cases, of the 5995 users, since there are 5 and only 6 users who would be discarded, we proceed safely.  We remove these users from the dataset either using the \verb#subset()# command in base R or using the \verb#filter()# command from \verb#dplyr# package~\cite{dplyr}. Note: the following commands are equivalent: 
+We observe that some of the heights are nonsensical, including heights of 1 inch and 95 inches (equaling 7'11'').  We deems heights between 55 and 80 inches to be reasonable, and while there is potential bias in discarding these cases, of the 59946 users, since there are 39 and only 78 users who would be discarded, we proceed safely.  We remove these users from the dataset either using the \verb#subset()# command in base R or using the \verb#filter()# command from \verb#dplyr# package~\cite{dplyr}. Note: the following commands are equivalent:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -298,11 +298,11 @@ This exercise was an opportunity to concretize the statistical notions such as m
 
 he data indicate that the San Francisco OkCupid dating population skews male and while the proportions of males and females who list themselves as straight are similar, a higher proportion of males list themselves as gay while a higher proportion of females list themselves as bisexual.  Many students were not surprised by this fact as they are well aware of the gender imbalance issues in the Technology sector, the rise of the San Francisco Bay Area as a formidabe tech capitol, and San Francisco's history of being a bastion community for gay men in the recent past.  An interesting discussion arose on the sociological factors in why more women listed themselves as bisexual then men; this topic has previously been covered on the blog OkTrends\cite{OkTrendsLies}.
 
-Students could make statement that are conditional probability statements such as ``Of the female population, $X$\% were $Y$'s and some could even recognize the etiomogical origins of the term "marginal distribution" as their counts are presented in the margins of the table.  
+Students could make statement that are conditional probability statements such as ``Of the female population, $X$\% were $Y$'s and some could even recognize the etiomogical origins of the term "marginal distribution" as their counts are presented in the margins of the table.
 
 The question of generalizability was presented in an introductory probability and statistics class homework.  Almost all students were able to recognize the non-randomness of the sampling and hence the results are non-generalizable.  For example they recognized that OkCupid's demographic is most likely different than other demographics, such as match.com (which is not free) or christiansingles.com (which is targeted towards Christians), or less technology-savvy individuals.
 
-So while 5995 users may seem like a fairly large sample to many students, we emphasized that one must be wary of self-selection biases that can affect the generalizability of the results.  This proved an excellent segue to discussions on John Tukey's famous quote to the sexologist Alfred Kinsey ``A random selection of three people would have been better than a group of 300 chosen by Mr. Kinsey.'' and Kate Crawford of Microsoft Research's YouTube talk ``Algorithmic Illusions: Hidden Biases of Big Data''~\cite{Strata}.
+So while 59946 users may seem like a fairly large sample to many students, we emphasized that one must be wary of self-selection biases that can affect the generalizability of the results.  This proved an excellent segue to discussions on John Tukey's famous quote to the sexologist Alfred Kinsey ``A random selection of three people would have been better than a group of 300 chosen by Mr. Kinsey.'' and Kate Crawford of Microsoft Research's YouTube talk ``Algorithmic Illusions: Hidden Biases of Big Data''~\cite{Strata}.
 
 Further questions one can pose to students include ``Which dating demographic would you say has it the best and worst in terms of our simplied categorization?'', ``What variable do you think should be incorporated next after sex and sexual orientation in faithfully representing the OkCupid landscape?'', ``Are we sure we can't \textit{pratically} assume generalizability of the results to Brooklyn OkCupid?''.
 
@@ -321,11 +321,11 @@ The next exercise focuses on the responses to the essay questions, providing you
 \begin{itemize}
 \item Uses the \verb#select()# command from the \verb#dplyr# package to select the 10 essay columms as identified by the fact they \verb#starts_with("essay")#.
 \item Converts the essays from list to matrix format.
-\item For each user concatenates the 10 columns to form a single string.  The code applies the function \verb#paste(x, collapse=" ")# to every essay where \verb#x# is the set of 10 essay responses, and the \verb#paste()# function collapses \verb#x# across columns while separate the elements by a space.  We do this for each set of essays (i.e. each row of \verb#essays#) via the \verb#apply()# command and setting the second argument to \verb#1#.  
-\item Replace all line breaks (\verb#\n#) and paragraph breaks (\verb#<br />#) with spaces as well to make the outputs more readable.  
+\item For each user concatenates the 10 columns to form a single string.  The code applies the function \verb#paste(x, collapse=" ")# to every essay where \verb#x# is the set of 10 essay responses, and the \verb#paste()# function collapses \verb#x# across columns while separate the elements by a space.  We do this for each set of essays (i.e. each row of \verb#essays#) via the \verb#apply()# command and setting the second argument to \verb#1#.
+\item Replace all line breaks (\verb#\n#) and paragraph breaks (\verb#<br />#) with spaces as well to make the outputs more readable.
 \end{itemize}
 
-The output is a single vector \verb#essays# that contains all 10 essay responses for each user concatenated together.  
+The output is a single vector \verb#essays# that contains all 10 essay responses for each user concatenated together.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -356,7 +356,7 @@ We ask:  Do men and women OkCupid users use words at different rates in their es
 \end{kframe}
 \end{knitrout}
 
-We test out various preconceptions of word use between any of the categorical variables:  sex, sexual orientation, etc.  For example, in Table \ref{word_use_by_sex} we compare the proportion of use of words in essays split by sex.  
+We test out various preconceptions of word use between any of the categorical variables:  sex, sexual orientation, etc.  For example, in Table \ref{word_use_by_sex} we compare the proportion of use of words in essays split by sex.
 
 % latex table generated in R 3.1.2 by xtable 1.7-4 package
 % Fri Mar 27 16:16:58 2015
@@ -434,7 +434,7 @@ And finally we evaluate the statistical significance of the difference in the us
 \end{kframe}
 \end{knitrout}
 
-And finally, consider the following fun exercise: the words in the male's top 500 that weren't in the women's top 500 and vice-versa.  
+And finally, consider the following fun exercise: the words in the male's top 500 that weren't in the women's top 500 and vice-versa.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -480,9 +480,9 @@ And finally, consider the following fun exercise: the words in the male's top 50
 \subsubsection{Teaching Goals and Discussions}
 This exercise provides students with experience performing basic text processing, mining, and analysis.  The messiness of the data is once against exemplified by the precense of HTML tags in the text data.  This messiness is both liability, as only students who are somewhat familiar with R will feel comfortable, as it is asset, as it confronts students with the fact that data-cleaning is a large part of the work.
 
-The nature of the data allows for students to judge prior sociological beliefs and preconceptions using data.  Many students were confronted, even with these simple analyses, with the fact that there is still evident gendered language being used in profile essays, and further investigation is warranted.  
+The nature of the data allows for students to judge prior sociological beliefs and preconceptions using data.  Many students were confronted, even with these simple analyses, with the fact that there is still evident gendered language being used in profile essays, and further investigation is warranted.
 
-Statistical concepts include the difference between practical and statistical significance as demonstrated by the difference in proportion of males and females that used the word ``football''.  This can lead to discussions of what it means to conduct hypothesis tests when the sample size is as large as 5995.  Why it was important to show which words were being used by men \textit{but not by women} as individually both groups will have as most frequently used words that are mostly particles like "the", "and", and "or".  
+Statistical concepts include the difference between practical and statistical significance as demonstrated by the difference in proportion of males and females that used the word ``football''.  This can lead to discussions of what it means to conduct hypothesis tests when the sample size is as large as 59946.  Why it was important to show which words were being used by men \textit{but not by women} as individually both groups will have as most frequently used words that are mostly particles like "the", "and", and "or".
 
 Further avenues of inquest include asking ``What are the implications of performing a large number of these proportions test on the essays?'', ``Can we predict demographic attributes of users based on word use?''  ``For what words do we see the biggest differences in use between the three categories of sexual orientation?''.  An even bolder goal include introducing concepts, such as constructing wordclouds,  inverse document frequency, natural language processing, and Latent dirichlet analysis\cite{LDA:2003}.
 
@@ -501,12 +501,15 @@ The final exercise provides an opportunity to fit a predicitive model for sex us
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{profiles} \hlkwb{<-} \hlkwd{filter}\hlstd{(profiles, height}\hlopt{>=}\hlnum{55} \hlopt{&} \hlstd{height} \hlopt{<=}\hlnum{80}\hlstd{)}
+\hlstd{profiles} \hlkwb{<-} \hlkwd{sample_n}\hlstd{(profiles, n}\hlopt{*}\hlnum{0.1}\hlstd{)}
 \end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: Sample size (5994.6) greater than population size (5983). Do you want replace = TRUE?}}\end{kframe}
 \end{knitrout}
 
 \subsubsection{Exercise}
-We convert the \verb#sex# variable to a binary \verb#is.female# variable, where \verb#1# if female and \verb#0# if male, using the \verb#ifelse()# function.  We plot the points as in Figure \ref{is_female_vs_height}, making use of the \verb#ggplot2# package.  
+We convert the \verb#sex# variable to a binary \verb#is.female# variable, where \verb#1# if female and \verb#0# if male, using the \verb#ifelse()# function.  We plot the points as in Figure \ref{is_female_vs_height}, making use of the \verb#ggplot2# package.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -547,7 +550,7 @@ We question the usefulness of this plot, as the overlap of the points makes it d
 
 \end{knitrout}
 
-We fit both linear and logistic regression models using height as the sole predictor.  Furthermore, we use the \verb#msummary()# from the \verb#mosaic# command to obtain the regression summary as its output is much more digestible than the output of the \verb#summary()# command.  Furthermore, we extract the coefficients of the linear model using the \verb#coef()# command.  
+We fit both linear and logistic regression models using height as the sole predictor.  Furthermore, we use the \verb#msummary()# from the \verb#mosaic# command to obtain the regression summary as its output is much more digestible than the output of the \verb#summary()# command.  Furthermore, we extract the coefficients of the linear model using the \verb#coef()# command.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -629,9 +632,9 @@ In both cases we observe that the coefficient associated with height is negative
 
 We observe that linear regression (red curve) yields fitted probabilities less than 0 for heights less than 61 inches for and fitted probabilities greater than 1 for heights over 73 inches, which do not make sense.  This is not a problem with logistic regression as the inverse-S shaped of the logistic curve ensures fitted probabilities are between 0 and 1 for all heights.   We therefore deem logistic regression to be the appropriate technique for this data.
 
-However, when predicting a user's gender, just using the fitted probabilities $\widehat{p}_i$ are insufficient; a decisions threshold is necessary.  In other words, a point at which if the probability of being a woman is exceeded, we declare that user to be female.  
+However, when predicting a user's gender, just using the fitted probabilities $\widehat{p}_i$ are insufficient; a decisions threshold is necessary.  In other words, a point at which if the probability of being a woman is exceeded, we declare that user to be female.
 
-Looking at the histogram of fitted probabilities, we pick an appropriate decision threshold $p^*$ such that for all users who's $\widehat{p}_i > p^*$ we predict the user to be female.  We opt for $p^* = 0.5$ and highlight this in red in Figure \ref{fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table of the truth and predicted values to evaluate the model performance.  
+Looking at the histogram of fitted probabilities, we pick an appropriate decision threshold $p^*$ such that for all users who's $\widehat{p}_i > p^*$ we predict the user to be female.  We opt for $p^* = 0.5$ and highlight this in red in Figure \ref{fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table of the truth and predicted values to evaluate the model performance.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -665,11 +668,11 @@ Looking at the histogram of fitted probabilities, we pick an appropriate decisio
 
 
 \subsubsection{Pedagogical Discussion}
-We find that the jump from linear to logistic regression is really hard for students to grasp.  For example, students often ask ``Why the $\log$ and $\exp$ functions?'', ``So we're not modelling $Y_i$ the outcome variable, we're modeling the probability $p_i$ that it equals 1?'', ``Why does the linear equation model the odds and not $p_i$ or $Y_i$''.  This exercise provides students to build up to the notion of logistic regression from the ground up and using data visualizations.  This example does however require familiarity with the \verb#ggplot2# package.  We feel this is a tool any data scientist primarily using \verb#R# should use, and have incorporated it heavily into our data science class.  
+We find that the jump from linear to logistic regression is really hard for students to grasp.  For example, students often ask ``Why the $\log$ and $\exp$ functions?'', ``So we're not modelling $Y_i$ the outcome variable, we're modeling the probability $p_i$ that it equals 1?'', ``Why does the linear equation model the odds and not $p_i$ or $Y_i$''.  This exercise provides students to build up to the notion of logistic regression from the ground up and using data visualizations.  This example does however require familiarity with the \verb#ggplot2# package.  We feel this is a tool any data scientist primarily using \verb#R# should use, and have incorporated it heavily into our data science class.
 
-We also argue that it is insufficient to merely fit the model and interpret any regressions, we feel that students benefit by also having predictions explicitly made and evaluating the logistic model's predictive power.  Wee ask the students ``For what proportion of people did you guess wrong'' referring to the misclassification error rate, in this case 16.69\%.  
+We also argue that it is insufficient to merely fit the model and interpret any regressions, we feel that students benefit by also having predictions explicitly made and evaluating the logistic model's predictive power.  Wee ask the students ``For what proportion of people did you guess wrong'' referring to the misclassification error rate, in this case 16.69\%.
 
-Further investigations including more than one predictor?  Perhaps using essay based information like in Section \ref{essays}
+Further investigations including more than one predictor?  Perhaps using essay based information like in Section \ref{essays}?  What is our \textit{false positive rate} i.e. the proportion of user's who were predicted to be female who were actually male?  What is our \textit{false negative rate} i.e. the proportion of user's who were predicted to be male who were actually female?  If you wanted to be sure you predicted all women correctly, what decision threshold $p^*$ should you use?
 
 
 
@@ -688,20 +691,16 @@ Further investigations including more than one predictor?  Perhaps using essay b
 %
 %------------------------------------------------------------------------------
 We feel that this dataset is an ideal one for introducing students to data science as it is
+
 \begin{enumerate}
 \item The data consists of an array of categorial, ordinal, numerical, and text variables.
-\item An instance of real data in that there are many missing values, many anomalous values that may need cleaning, and have very complicated values (for instance, there are 218 unique responses to the ethnicity variable).  This reinforces to students that this is how data typically exists in many settings and that time and energy must be invested into preparing the data for analysis. 
-\item Many judgement calls and tradeoffs need to take place in the above-mentioned cleaning in order to reach any kind of meaningful conclusions.  
-\item The dataset is of modest size.  While $n = 5995$ is not an overwhelmingly large number of observations, the size of the data set (149.9 MB CSV file) is mostly due to the 10 essay questions.  However the sample size is large enough to have implications for many traditional statistical tests and the interpretations of the resulting p-values.  
+\item This is an instance of real data that is messy and thus requiring data-wrangling, has many suspicious values, and includes categorical variables of a complicated nature (for instance, there are 218 unique responses to the ethnicity variable).  This reinforces to students that time and energy must be often invested into preparing the data for analysis.
+\item The dataset is of modest size.  While $n = 59946$ is not an overwhelmingly large number of observations, it is still much larger than typical datasets used in many introductory probability and statistics classes.
 \end{enumerate}
 
+We argue that given the salience of the dataset to students, this dataset provides a very fruitful channel to introduce statistical and data sciences to students of vary undergraduate levels.  By presenting questions to students that allow for the use of background knowledge of the problem, whether it be the news, stereotypes, sociological knowledge, students are much better primed to absorb statistical lessons.  Hence, we took a "lead by the hand" approach to the tone of the exercises.  Other statistics education papers taking a similar approach to ours but using different data include BLAH
 
-% What other papers have been published with similar types of analysis? 
-% What other statistics education papers have been written with similar types of data? 
-% What does your dataset and analysis provide that distinguishes it from other statistics education papers?
-
-
-The R code used in this document can be outputed into an R script file via the \verb#purl()# command in the \verb#knitr# package.
+The R code used in this \verb#.Rmd# R Sweave document can be outputed into an R script file by using the \verb#purl()# command in the \verb#knitr# package on the \verb#JSE.Rnw# R Sweave document found at \url{https://github.com/rudeboybert/JSE_OkCupid}.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -724,7 +723,7 @@ The R code used in this document can be outputed into an R script file via the \
 \section{Acknowledgements}\label{ack}
 %
 %------------------------------------------------------------------------------
-First, we thank OkCupid President and co-founder Christian Rudder for agreeing to our use of this dataset (under the condition that the dataset remains public).  Second, we thank Everett Wetchler \href{mailto:everett.wetchler@gmail.com}{everett.wetchler@gmail.com} for providing the data; the python script used to scrape the data and the original CSV file of the data can be found at \href{https://github.com/evee746/okcupid}{https://github.com/evee746/okcupid}.  Finally, we thank the reviewers for their helpful comments.  
+First, we thank OkCupid President and co-founder Christian Rudder for agreeing to our use of this dataset (under the condition that the dataset remains public).  Second, we thank Everett Wetchler \href{mailto:everett.wetchler@gmail.com}{everett.wetchler@gmail.com} for providing the data; the python script used to scrape the data and the original CSV file of the data can be found at \href{https://github.com/evee746/okcupid}{https://github.com/evee746/okcupid}.  Finally, we thank the reviewers for their helpful comments.
 
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 
