@@ -6,3 +6,5 @@ profiles.20120630.csv
 *.synctex.gz
 *.log
 other.R
+JSE.Rnw
+cache/*
