@@ -1,6 +1,6 @@
 # OkCupid Profile Data for Intro Stats and Data Science Courses
-Albert Y. Kim  
-`r Sys.Date()`  
+Albert Y. Kim and Adriana Escobedo-Land  
+April 4, 2015  
 
 Data and code for "OkCupid Profile Data for Introductory Statistics and Data Science Courses":
 

@@ -1,7 +1,7 @@
 ---
 title: "OkCupid Profile Data for Intro Stats and Data Science Courses"
-author: "Albert Y. Kim"
-date: "`r Sys.Date()`"
+author: "Albert Y. Kim and Adriana Escobedo-Land"
+date: April 4, 2015
 output:
   html_document:
     keep_md: yes
