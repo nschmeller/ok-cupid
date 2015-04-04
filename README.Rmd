@@ -1,6 +1,11 @@
-# OkCupid Profile Data for Intro Stats and Data Science Courses
-Albert Y. Kim  
-`r Sys.Date()`  
+---
+title: "OkCupid Profile Data for Intro Stats and Data Science Courses"
+author: "Albert Y. Kim"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    keep_md: yes
+---
 
 Data and code for "OkCupid Profile Data for Introductory Statistics and Data Science Courses":
 

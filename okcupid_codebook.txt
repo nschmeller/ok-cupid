@@ -1,24 +1,24 @@
 NAME: San Francisco OKCupid Users
 TYPE: Volunteered sample
 SIZE: 59946 cases (users active on 2012/06/30 who had active accounts on 2012/06/26), 32 variables
-ARTICLE TITLE: OkCupid User Data to Motivate Introductory Statistics Topics
+ARTICLE TITLE: OkCupid Profile Data for Introductory Statistics and Data Science Courses
 
-DESCRIPTIVE ABSTRACT: This dataset was created with of a python code that pulls the data from public profiles on www.okcupid.com. It has an n=59946 of people within a 25 mile radius of San Francisco, who were online in the last year (06/30/2011), with at least one profile picture.
+DESCRIPTIVE ABSTRACT: This dataset was created with the use of a python script that pulled the data from public profiles on www.okcupid.com. It has an n=59946, which includes people within a 25 mile radius of San Francisco, who were online in the last year (06/30/2011), with at least one profile picture.
 
-SOURCES: Data scraped from public profiles on www.okcupid.com on 06/30/2012 using a python script.
+SOURCES: Data scraped from public profiles on www.okcupid.com on 06/30/2012.  Permission to use this data was obtained from OkCupid President and co-founder Christian Rudder under the condition that the dataset remains public.
 
 VARIABLE DESCRIPTIONS:
-Missing data is blank. Some variables have two factors, which are denoted in this codebook by a semicolon (i.e. "graduated from; two-year college) though are found without punctuation in the dataset. Details for specific variables are found in parenthesis.
+Missing data is blank. Some variables have two factors, which are denoted in this codebook by a semicolon (e.g. "graduated from; two-year college) though they are found without punctuation in the dataset. Details for specific variables are found in parenthesis.
 
-body_type- rather not say, thin, overweight, skinny, average, fit, athletic, jacked, a little extra, curvy, full figured, used up 
+body_type- rather not say, thin, overweight, skinny, average, fit, athletic, jacked, a little extra, curvy, full figured, used up
 
 diet- mostly/strictly; anything, vegetarian, vegan, kosher, halal, other
 
-drinks- very often, often, socially, rarely, desperately, not at all 
+drinks- very often, often, socially, rarely, desperately, not at all
 
-drugs- never, sometimes, often 
+drugs- never, sometimes, often
 
-education- graduated from, working on, dropped out of; high school, two-year college, university, masters program, law school, med school, Ph.D program, space camp 
+education- graduated from, working on, dropped out of; high school, two-year college, university, masters program, law school, med school, Ph.D program, space camp
 
 ethnicity- Asian, middle eastern, black, native American, indian, pacific islander, Hispanic/latin, white, other
 
@@ -38,7 +38,7 @@ religion- agnosticism, atheism, Christianity, Judaism, Catholicism, Islam, Hindu
 
 sex- m, f
 
-sign- aquarius, pices, aries, Taurus, Gemini, cancer, leo, virgo, libra, scorpio, saggitarius, Capricorn; but it doesn’t matter, and it matters a lot, and it’s fun to think about 
+sign- aquarius, pices, aries, Taurus, Gemini, cancer, leo, virgo, libra, scorpio, saggitarius, Capricorn; but it doesn’t matter, and it matters a lot, and it’s fun to think about
 
 smokes- yes, sometimes, when drinking, trying to quit, no
 
@@ -57,7 +57,7 @@ essay7- On a typical Friday night I am
 essay8- The most private thing I am willing to admit
 essay9- You should message me if...
 
-SPECIAL NOTES: All essay questions are fill-in, and do not lend themselves to simple analyses.
+SPECIAL NOTES: All essay questions are fill-in the blank, answers are not summarized here.
 
 SUBMITTED BY:
 Albert Y. Kim and Adriana Escobedo-Land
