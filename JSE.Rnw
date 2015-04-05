@@ -287,7 +287,7 @@ setdiff(female.words[1:500], male.words[1:500])
 
 
 \subsubsection{Teaching Goals and Discussions}
-This exercise provides students with experience performing basic text processing, mining, and analysis.  Given the more advanced tools used in the last component of the exercise (the top words used by males and females), we suggest this be reserved for students with more familiarity with R.  We deliberately did not pre-process the data for students to remove punctuation and HTML tags both to keep the code simple and to demonstrate the reality to students that ``real'' data is often very messy requiring work to clean up.
+This exercise provides students with experience performing basic text processing, mining, and analysis.  Given the more advanced tools used in the last component of the exercise (the top words used by males and females), we suggest this be reserved for students with more familiarity with R.  We deliberately did not preprocess the data for students to remove punctuation and HTML tags both to keep the code simple and to demonstrate the reality to students that ``real'' data is often very messy requiring work to clean up.
 
 Statistical concepts include the difference between practical and statistical significance as demonstrated by the difference in proportion of males and females that used the word ``football''.  This can lead to discussions of what it means to conduct hypothesis tests when the sample size is as large as \Sexpr{n}.  Furthermore, we demonstrate that simple comparisons via basic set operations can be very powerful tools yielding valuable insight.  For example, the difference in words used by males and females in our surface-level analysis is striking.
 
