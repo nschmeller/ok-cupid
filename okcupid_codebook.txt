@@ -5,7 +5,7 @@ ARTICLE TITLE: OkCupid Profile Data for Introductory Statistics and Data Science
 
 DESCRIPTIVE ABSTRACT: This dataset was created with the use of a python script that pulled the data from public profiles on www.okcupid.com. It has an n=59946, which includes people within a 25 mile radius of San Francisco, who were online in the last year (06/30/2011), with at least one profile picture.
 
-SOURCES: Data scraped from public profiles on www.okcupid.com on 06/30/2012.  Permission to use this data was obtained from OkCupid President and co-founder Christian Rudder under the condition that the dataset remains public.
+SOURCES: Data scraped from public profiles on www.okcupid.com on 06/30/2012.  Permission to use this data was obtained from OkCupid president and co-founder Christian Rudder under the condition that the dataset remains public.
 
 VARIABLE DESCRIPTIONS:
 Missing data is blank. Some variables have two factors, which are denoted in this codebook by a semicolon (e.g. "graduated from; two-year college) though they are found without punctuation in the dataset. Details for specific variables are found in parenthesis.
