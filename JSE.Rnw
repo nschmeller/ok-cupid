@@ -1,7 +1,6 @@
 \documentclass{article}
 \usepackage{fullpage, amssymb, url, natbib}
-\usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor = blue,
-anchorcolor = blue]{hyperref}
+\usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor = blue, anchorcolor = blue]{hyperref}
 
 
 \begin{document}
@@ -9,35 +8,45 @@ anchorcolor = blue]{hyperref}
 <<echo=FALSE, message=FALSE, warning=FALSE>>=
 # The following packages must be installed
 library(xtable)
-library(mosaic)
-library(dplyr)
 library(stringr)
+library(dplyr)
 library(ggplot2)
 
 # Set rounding to 2 digits
 options(digits=2)
-
-# Set seed for reproducible random number generation
-set.seed(76)
 @
 
 
-\noindent Albert Y. Kim\\
-Adriana Escobedo-Land\\
-Reed College\\
-OkCupid Profile Data for Introductory Statistics and Data Science Courses\\
 
-\noindent \textbf{Keywords}: OkCupid, online dating, data science, big data.
+\title{OkCupid Profile Data for Introductory Statistics and Data Science Courses}
+\author{
+\normalsize Albert Y. Kim \thanks{
+  Address for correspondence: Department of Mathematics,
+  Middlebury College, Warner Hall,
+  303 College Street,
+  Middlebury, VT 05753.}\\
+\footnotesize Department of Mathematics\\
+\footnotesize Middlebury College, Middlebury, VT \\
+\and
+\normalsize Adriana Escobedo-Land \\
+\footnotesize Environmental Studies-Biology Program\\
+\footnotesize Reed College, Portland, OR\\
+\normalsize
+}
 
-\begin{abstract}
-We present a dataset consisting of user profile data for 59,946 San Francisco OkCupid users (an online dating site) from June 2012.  The data set includes typical user information, lifestyle variables, and text responses to 10 essays questions.  We present four example analyses suitable for use in undergraduate introductory probability \& statistics and data science classes that use \verb#R#.  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.
-\end{abstract}
+\maketitle
 
+\newpage
+\begin{center}
+{\Large OkCupid Profile Data for Introductory Statistics and Data Science Courses}
+\end{center}
+\subsection*{Abstract}
+We present a dataset consisting of user profile data for 59,946 San Francisco OkCupid users (an online dating site) from June 2012.  The data set includes typical user information, lifestyle variables, and text responses to 10 essays questions.  We present four example analyses suitable for use in undergraduate introductory probability \& statistics and data science classes that use R.  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.
 
+\vspace{.1in}
 
-
-
-
+Keywords:  OkCupid, online dating, data science, big data, logistic regression, text mining.
+\newpage
 
 
 
@@ -47,9 +56,11 @@ We present a dataset consisting of user profile data for 59,946 San Francisco Ok
 \section{Introduction}\label{intro}
 %
 %------------------------------------------------------------------------------
-Given that the field of data science gaining more prominence in academia and industry, many statisticians are arguing that statistics needs to stake a bigger claim in data science in order to avoid marginalization by other disciplines such as computer science and computer engineering~\cite{YU:2014,DAVIDSON:2014}.  While precise definition of the difference between statistics and data science and its implications for statistics education can be debated~\cite{WICKHAM:2014}, one consensus among many in statistics education circles is that at the very least statistics needs to incorporate a heavier computing component and the use of technology for both developing conceptual understanding and analyzing data~\cite{GAISE:05, NOLAN:LANG:2010}.  Relatedly, in the hopes of making introductory undergraduate statistics courses more relevant, many statistics educators are placing a higher emphasis on the use of real data in the classroom, a practice the American Statistical Association's Guidelines for Assessment and Instruction in Statistics Education (GAISE) project's reports strongly encourages~\cite{GAISE:05}.  Of particular importance in the success of such ambitions are the data sets considered, as they provide the context of the analyses and thus will ultimately drive student interest~\cite{GOULD:2010}.
+Given that the field of data science gaining more prominence in academia and industry, many statisticians are arguing that statistics needs to stake a bigger claim in data science in order to avoid marginalization by other disciplines such as computer science and computer engineering \cite{YU:2014,DAVIDSON:2014}.  The importance of emphasizing data science concepts in the undergraduate curriculum is stressed in the American Statistical Association's (ASA) most recent Curriculum Guidelines for Undergraduate Programs in Statistical Science \cite{ASA:Guidelines}.
 
-It is in light of these discussions that we present this paper centering on data from the online dating website OkCupid, specifically a snapshot of San Francisco California users taken on June 2012.  We describe the dataset and present a series of example analyses along with corresponding pedagogical discussions.  The example analyses presented in this paper were used in a variety of settings at Reed College: a 90 minute introductory tutorial on R, an introductory probability and statistics class, and a follow-up two-hundred level data science class titled ``Case Studies in Statistical Analysis.''  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.  All examples are presented using the R statistical software program and make use of the \verb#mosaic#, \verb#dplyr#, \verb#stringr#, and \verb#ggplot2# packages~\cite{mosaic, dplyr, stringr, ggplot2}.
+While precise definition of the exact difference between statistics and data science and its implications for statistics education can be debated \cite{WICKHAM:2014}, one consensus among many in statistics education circles is that at the very least statistics needs to incorporate a heavier computing component and the use of technology for both developing conceptual understanding and analyzing data \cite{GAISE:05, NOLAN:LANG:2010}.  Relatedly, in the hopes of making introductory undergraduate statistics courses more relevant, many statistics educators are placing a higher emphasis on the use of real data in the classroom, a practice the ASA's Guidelines for Assessment and Instruction in Statistics Education (GAISE) project's reports strongly encourages \cite{GAISE:05}.  Of particular importance in the success of such ambitions are the data sets considered, as they provide the context of the analyses and thus will ultimately drive student interest \cite{GOULD:2010}.
+
+It is in light of these discussions that we present this paper centering on data from the online dating website OkCupid, specifically a snapshot of San Francisco California users taken on June 2012.  We describe the dataset and present a series of example analyses along with corresponding pedagogical discussions.  The example analyses presented in this paper were used in a variety of settings at Reed College: a 90 minute introductory tutorial on R, an introductory probability and statistics class, and a follow-up two-hundred level data science class titled ``Case Studies in Statistical Analysis.''  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.  All examples are presented using the R statistical software program and make use of the \verb#mosaic#, \verb#dplyr#, \verb#stringr#, and \verb#ggplot2# packages \cite{mosaic, dplyr, stringr, ggplot2}.
 
 
 
@@ -72,9 +83,9 @@ profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
 n <- nrow(profiles)
 @
 
-Analysis of similar data has received much press of late, including Amy Webb's TED talk ``How I Hacked Online Dating''~\cite{TED} and Wired magazine's ``How a Math Genius Hacked OkCupid to Find True Love''~\cite{Wired}.  OkCupid co-founder Christian Rudder pens periodical analysis of their data on the OkTrends blog~\cite{OkTrends} and has recently published a book ``Dataclysm: Who We Are When We Think No One's Looking'' describing similar data-driven insights~\cite{dataclysm}.  Such publicity surrounding data-driven online dating and the salience of dating matters among students makes this dataset one with much potential to be of interest to students, hence facilitating the instruction of statistical and data science concepts.
+Analysis of similar data has received much press of late, including Amy Webb's TED talk ``How I Hacked Online Dating'' \cite{TED} and Wired magazine's ``How a Math Genius Hacked OkCupid to Find True Love'' \cite{Wired}.  OkCupid co-founder Christian Rudder pens periodical analysis of their data on the OkTrends blog and has recently published a book ``Dataclysm: Who We Are When We Think No One's Looking'' describing similar data-driven insights \cite{dataclysm}.  Such publicity surrounding data-driven online dating and the salience of dating matters among students makes this dataset one with much potential to be of interest to students, hence facilitating the instruction of statistical and data science concepts.
 
-Before we continue we note that even though this data consists of publicly facing material, one should proceed with caution before scraping and using data in fashion similar to ours, as the Computer Fraud and Abuse Act (CFAA) makes it a federal crime to access a computer without authorization from the owner~\cite{pando}.  In our case, permission was given by the owners of the data (See Section \ref{ack}).
+Before we continue we note that even though this data consists of publicly facing material, one should proceed with caution before scraping and using data in fashion similar to ours, as the Computer Fraud and Abuse Act (CFAA) makes it a federal crime to access a computer without authorization from the owner \cite{Pando:2014}.  In our case, permission was given by the owners of the data (See Section \ref{ack}).
 
 
 
@@ -110,32 +121,29 @@ We compare the distribution of male and female OkCupid users' heights.  Height i
 
 \begin{center}
 <<cache=TRUE, all_heights, fig.height=4, fig.width=6, fig.cap="Heights of all users.", fig.align='center'>>=
+require(mosaic)
 favstats(height, data=profiles)
 @
 \end{center}
 
-We observe that some of the heights are nonsensical, including heights of 1 inch and 95 inches (equaling 7'11'').  We deem heights between 55 and 80 inches to be reasonable and remove the rest.  While there is potential bias in discarding users with what we deem non-reasonable heights, since out of the \Sexpr{n} users there are only \Sexpr{sum(profiles$height < 55 | profiles$height > 80, na.rm=TRUE)} who would be discarded, the effect would not be substantial.  We keep only those users with heights between 55 and 80 inches either using the \verb#subset()# command or using the \verb#filter()# command from \verb#dplyr# package. Note that the following commands are equivalent:
+We observe that some of the heights are nonsensical, including heights of 1 inch and 95 inches (equaling 7'11'').  We deem heights between 55 and 80 inches to be reasonable and remove the rest.  While there is potential bias in discarding users with what we deem non-reasonable heights, since out of the \Sexpr{n} users there are only \Sexpr{sum(profiles$height < 55 | profiles$height > 80, na.rm=TRUE)} who would be discarded, the effect would not be substantial.  We keep only those users with heights between 55 and 80 inches using the \verb#filter()# command from the \verb#dplyr# package:
 
 <<cache=TRUE>>=
-profiles.subset <- subset(profiles, height>=55 & height <=80)
+require(dplyr)
 profiles.subset <- filter(profiles, height>=55 & height <=80)
 @
 
-We compare the distributions of male and female heights using histograms.  While we could plot two separate histograms without regard to the scale of the x-axis, in Figure \ref{fig:heights_by_sex} we instead
+We compare the distributions of male and female heights using histograms.  While we could plot two separate histograms without regard to the scale of the x-axis, in Figure \ref{fig:heights_by_sex} we instead use the \verb#histogram()# function from the \verb#mosaic# package to
 
 \begin{enumerate}
-\item Plot them with bin widths matching the granularity of the observations (inches)
-\item Plot them simultaneously in a panel consisting of two rows and one column of plots using the command \verb#par(mfrow=c(2,1))#
-\item Plot them with the same scale on the x-axis (by matching the histograms' breaks by setting \verb#breaks=55:80#) and the y-axis (by selecting a density histogram and not a frequency histogram using \verb#prob=TRUE#) to facilitate comparisons between the two distributions
+\item Plot heights given sex by defining the formula \verb#~ height | sex#.
+\item Plot them simultaneously in a lattice plot consisting of two rows and one column of plots by setting \verb#layout=c(1,2)#
+\item Plot them with bin widths matching the granularity of the observations (inches) by setting \verb#width=1#.  The \verb#histogram()# function automatically matches the $x$-axis scales for both plots.
 \end{enumerate}
 
 
 <<cache=TRUE, heights_by_sex, fig.height=7, fig.width=10, fig.cap="Histograms of user heights split by sex.", fig.align='center'>>=
-profiles.male <- filter(profiles.subset, sex=='m')
-profiles.female <- filter(profiles.subset, sex=='f')
-par(mfrow=c(2,1))
-hist(profiles.female$height, breaks=55:80, main="Females", prob=TRUE, xlab="Height (in.)")
-hist(profiles.male$height, breaks=55:80, main="Males", prob=TRUE, xlab="Height (in.)")
+histogram(~height | sex, width=1, layout=c(1,2), xlab="Height (in)", data=profiles.subset)
 @
 
 
@@ -164,11 +172,11 @@ barplot(table(profiles$sex)/n, xlab="sex", ylab="proportion")
 barplot(table(profiles$orientation)/n, xlab="orientation", ylab="proportion")
 @
 
-However, in order to accurately portray the dating landscape we can't just consider the \textbf{marginal distributions} of these variables, we must consider their \textbf{joint} and \textbf{conditional distributions} i.e. their cross-classifications.  We describe the distribution of sexual orientation conditional on sex.  For example, of all females (the condition) what proportion are bisexual?  We do this using the \verb#tally()# command from the \verb#mosaic# package and note both columns sum to 1.  Furthermore, we visualize their joint distribution, as represented by their contingency table, via the mosaicplot shown in Figure \ref{fig:sex_by_orientation}.
+However, in order to accurately portray the dating landscape we can't just consider the \textbf{marginal distributions} of these variables, we must consider their \textbf{joint} and \textbf{conditional distributions} i.e. their cross-classifications.  We describe the distribution of sexual orientation conditional on sex.  For example, of all females (the condition) what proportion are bisexual?  We do this using the \verb#tally()# command from the \verb#mosaic# package and ensure both columns sum to 1 by setting \verb#format='proportion'#.  Furthermore, we visualize their joint distribution, as represented by their contingency table, via the mosaicplot shown in Figure \ref{fig:sex_by_orientation}.
 
 <<cache=TRUE, sex_by_orientation, fig.height=6, fig.width=6, fig.cap="Cross-classification of sex and sexual orientation.", fig.align='center'>>=
-tally(orientation ~ sex, profiles, format='proportion')
-sex.by.orientation <- with(profiles, table(sex, orientation))
+tally(orientation ~ sex, data=profiles, format='proportion')
+sex.by.orientation <- tally(~sex + orientation, data=profiles)
 sex.by.orientation
 mosaicplot(sex.by.orientation, main="Sex vs Orientation")
 @
@@ -180,7 +188,7 @@ Do these results generalize to the San Francisco online dating population?
 \subsubsection{Pedagogical Discussion}
 This exercise was an opportunity to concretize the statistical notions such as marginal/joint/conditional distributions and sampling bias.  The data indicate that the San Francisco OkCupid dating population skews male and while the proportions of males and females who list themselves as straight are similar, a higher proportion of males list themselves as gay while a higher proportion of females list themselves as bisexual.  Many students were not surprised by this fact as they were well aware of the gender imbalance issues in the large technology sector in the San Francisco Bay Area and San Francisco's history of being a bastion for the gay community.
 
-The question of generalizability was presented in an introductory probability and statistics class homework.  Almost all students were able to recognize the selection biases of who signs up for this site and hence the non-generalizability of the results.  For example some recognized that OkCupid's demographic is most likely different than other dating website demographics such as \url{match.com} (which is not free) or \url{christiansingles.com} (which is targeted towards Christians).  So while \Sexpr{n} users may initially seem like a fairly large sample, we emphasized that bigger isn't always better when it comes to obtaining accurate inference.  This proved an excellent segue to Kate Crawford of Microsoft Research's YouTube talk ``Algorithmic Illusions: Hidden Biases of Big Data''~\cite{Strata} where she discusses examples of sampling bias in the era of Big Data.
+The question of generalizability was presented in an introductory probability and statistics class homework.  Almost all students were able to recognize the selection biases of who signs up for this site and hence the non-generalizability of the results.  For example some recognized that OkCupid's demographic is most likely different than other dating website demographics such as \url{match.com} (which is not free) or \url{christiansingles.com} (which is targeted towards Christians).  So while \Sexpr{n} users may initially seem like a fairly large sample, we emphasized that bigger isn't always better when it comes to obtaining accurate inference.  This proved an excellent segue to Kate Crawford of Microsoft Research's YouTube talk ``Algorithmic Illusions: Hidden Biases of Big Data'' \cite{Strata} where she discusses examples of sampling bias in the era of Big Data.
 
 Further questions one can pose to students include ``Which dating demographic would you say has it the best and worst in terms of our simplified categorization?'' and ``What variable do you think should be incorporated next in order to faithfully represent the OkCupid dating pool?''
 
@@ -202,6 +210,7 @@ The next exercise focuses on the responses to the essay questions, providing an 
 \end{itemize}
 
 <<cache=TRUE>>=
+require(stringr)
 essays <- select(profiles, starts_with("essay"))
 essays <- apply(essays, 1, paste, collapse=" ")
 essays <- str_replace_all(essays, "\n", " ")
@@ -246,11 +255,12 @@ results
 prop.test(x=results[2, ], n=colSums(results), alternative="two.sided")
 @
 
-And finally, consider the following fun exercise: we generate the top 500 words used by males and females respectively.  The following code uses the ``pipe'' \verb#%>%# operator from the \verb#dplyr# package to send the output of one function into the next function wherever the period is located.  For example, the following two lines of code perform the identical task:
+And finally, consider the following fun exercise: we generate the top 500 words used by males and females respectively.  The following code uses the ``pipe'' \verb#%>%#
+operator from the \verb#dplyr# package to use the output of one function as the first argument for the next function.  For example, the following two lines of code perform the identical task:
 
 <<cache=TRUE, eval=FALSE>>=
-c(1, 2, 3, 4) %>% sum(.)
-sum(c(1, 2, 3, 4))
+c(1, 2, 3, 4, NA) %>% sum(na.rm=TRUE)
+sum(c(1, 2, 3, 4, NA), na.rm=TRUE)
 @
 
 This allows us to avoid having multiple R functions nested in a large number of parentheses and highlights the sequence of commands performed.  In our case, the code below:
@@ -265,10 +275,18 @@ This allows us to avoid having multiple R functions nested in a large number of 
 \end{itemize}
 
 <<cache=TRUE>>=
-male.words <- subset(essays, profiles$sex == "m") %>% str_split(., " ") %>%
-  unlist(.) %>% table(.) %>% sort(., decreasing=TRUE) %>% names(.)
-female.words <- subset(essays, profiles$sex == "f") %>% str_split(., " ") %>%
-  unlist(.) %>% table(.) %>% sort(., decreasing=TRUE) %>% names(.)
+male.words <- subset(essays, profiles$sex == "m") %>%
+  str_split(" ") %>%
+  unlist() %>%
+  table() %>%
+  sort(decreasing=TRUE) %>%
+  names()
+female.words <- subset(essays, profiles$sex == "f") %>%
+  str_split(" ") %>%
+  unlist() %>%
+  table() %>%
+  sort(decreasing=TRUE) %>%
+  names()
 @
 
 However, for both males and females, the top words are not interesting (as reflected by the top 25 below), as they include many particles such as ``I'', ``and'', and ``the.''  Therefore, we consider the top 500 words used by males \textit{that are not in the top 500 words used by females}, and vice-versa, by taking the difference in sets using the \verb#setdiff()# command.  Note that we didn't correct for punctuation.
@@ -305,16 +323,31 @@ Another interesting investigation for students to pursue is to what degree do th
 \subsection{Predictors of Sex}
 %---------------------------------------------------------------
 \subsubsection{Exercise}
-This exercise provides an opportunity to fit a predictive model for sex using logistic regression.  In order to reinforce the concepts of logistic regression, we keep things simple and consider only one predictor variable in the logistic model: height.  We restrict to only those users whose heights are reasonable as defined previously in Section \ref{section_height} and in order to to speed up computation and improve graphical outputs, we only consider a random sample of 5995 users (10\% of the data) using the \verb#sample_n()# command from the \verb#dplyr# package.
+This exercise provides an opportunity to fit a predictive model for sex using logistic regression.  In order to reinforce the concepts of logistic regression, we keep things simple and consider only one predictor variable in the logistic model: height.  We restrict to only those users whose heights are reasonable as defined previously in Section \ref{section_height} and in order to to speed up computation and improve graphical outputs, we only consider a random sample of 5995 users (10\% of the data).
+
+However, to ensure the replicability of our results (in other words ensuring the same 5995 users are ``randomly'' selected), we demonstrate the use of the \verb#set.seed()# command.  R's random number generator is not completely random, but rather is \textit{pseudorandom} in that it generates values that are statistically indistinguishable from a truly random sequence of values, but are generated by a deterministic process.  This deterministic process takes in a \textit{seed} value and for the same seed value, R will generate the same sequence of values.  For example, consider generating a random sequence of the numbers 1 through 10 using the \verb#sample()# command for various seed values.  We see that setting the seed to the same (arbitrarily chosen) value 76 yields the same sequence, whereas changing the seed value to 79 yields a difference sequence.  Play around with this function to get a feel for it.
 
 <<cache=TRUE>>=
+set.seed(76)
+sample(1:10)
+set.seed(76)
+sample(1:10)
+set.seed(79)
+sample(1:10)
+@
+
+
+We proceed by setting the seed value to the (arbitrarily chosen) value 76 and sample 5995 users at random by using the \verb#sample_n()# command from the \verb#dplyr# package
+<<cache=TRUE>>=
 profiles <- filter(profiles, height>=55 & height <=80)
+set.seed(76)
 profiles <- sample_n(profiles, 5995)
 @
 
 We convert the \verb#sex# variable to a binary \verb#is.female# variable, where \verb#1# if female and \verb#0# if male, using the \verb#ifelse()# function.  We plot the points as in Figure \ref{fig:is_female_vs_height}, making use of the \verb#ggplot2# package.
 
 <<cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'>>=
+require(ggplot2)
 profiles$is.female = ifelse(profiles$sex=="f", 1, 0)
 ggplot(data=profiles, aes(x=height, y=is.female)) + geom_point() +
   xlab("Height (in.)") + ylab("Is female?")
@@ -365,10 +398,13 @@ We observe that linear regression (red curve) yields fitted probabilities less t
 
 However, when predicting a user's gender, just using the fitted probabilities $\widehat{p}_i$ is insufficient; a decision threshold is necessary.  In other words, a point at which if the probability of being female is exceeded, we \textit{predict} that user to be female.  Looking at the histogram of fitted probabilities, we pick an appropriate decision threshold $p^*$ such that for all users whose $\widehat{p}_i > p^*$, we predict the user to be female.  We opt for $p^* = 0.5$ and highlight this in red in Figure \ref{fig:fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table comparing the true and predicted values.
 
-<<cache=TRUE, fitted_values, fig.height=3.5, fig.width=3.5, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
+<<cache=TRUE, fitted_values, fig.height=4, fig.width=4, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
 profiles$p.hat <- fitted(logistic.model)
-hist(profiles$p.hat, xlab="p.hat", main="")
-abline(v=0.5, col="red", lwd=2)
+ggplot(data=profiles, aes(x=p.hat)) +
+  geom_histogram(binwidth=0.1) +
+  xlab(expression(hat(p))) + ylab("Frequency") +
+  xlim(c(0,1)) +
+  geom_vline(xintercept=0.5, col="red", size=1.2)
 profiles$predicted.female <- profiles$p.hat >= 0.5
 table(truth=profiles$is.female, prediction=profiles$predicted.female)
 @
@@ -410,6 +446,8 @@ We feel that this dataset is an ideal one for use in introductory statistics and
 \item The dataset is of modest size.  While $n = \Sexpr{n}$ is not an overwhelmingly large number of observations, it is still much larger than typical datasets used in many introductory probability and statistics classes.
 \end{enumerate}
 
+For \cite{hort:baum:2015}
+
 All the files, including the original data and the R Sweave \verb#.Rmd# file used to create this document, can be found at \url{https://github.com/rudeboybert/JSE_OkCupid}.  Note that the file \verb#profiles.csv.zip# must be unzipped first.  All R code used in this document can be outputted into an R script file by using the \verb#purl()# command in the \verb#knitr# package on the \verb#JSE.Rnw# R Sweave document.
 <<echo=TRUE, message=FALSE, eval=FALSE>>=
 purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
@@ -431,21 +469,6 @@ purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
 %------------------------------------------------------------------------------
 First, we thank OkCupid president and co-founder Christian Rudder for agreeing to our use of this dataset (under the condition that the dataset remains public).  Second, we thank Everett Wetchler of \url{everett.wetchler@gmail.com} for providing the data; the python script used to scrape the data can be found at \url{https://github.com/evee746/okcupid}.  Finally, we thank the reviewers for their helpful comments.
 
-\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
-
-\noindent Albert Y. Kim\\
-Mathematics Department\\
-Reed College\\
-3203 SE Woodstock Blvd\\
-Portland, OR 97202\\
-\url{albert.kim@reed.edu}\\
-
-\noindent Adriana Escobedo-Land\\
-Reed College\\
-3203 SE Woodstock Blvd\\
-Portland, OR 97202\\
-\url{escobad@reed.edu}
-
 
 
 
@@ -460,7 +483,9 @@ Portland, OR 97202\\
 % Bibliography
 %
 %------------------------------------------------------------------------------
-\bibliographystyle{unsrt}
+\newpage
+\bibliographystyle{dcu}
+%\bibliographystyle{unsrt}
 \bibliography{JSE}
 
 
