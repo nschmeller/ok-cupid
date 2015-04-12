@@ -18,7 +18,7 @@ options(digits=2)
 
 
 
-\title{OkCupid Profile Data for Introductory Statistics and Data Science Courses}
+\title{OkCupid Data for Introductory Statistics and Data Science Courses}
 \author{
 \normalsize Albert Y. Kim \thanks{
   Address for correspondence: Department of Mathematics,
@@ -38,10 +38,10 @@ options(digits=2)
 
 \newpage
 \begin{center}
-{\Large OkCupid Profile Data for Introductory Statistics and Data Science Courses}
+{\Large OkCupid Data for Introductory Statistics and Data Science Courses}
 \end{center}
 \subsection*{Abstract}
-We present a dataset consisting of user profile data for 59,946 San Francisco OkCupid users (an online dating site) from June 2012.  The data set includes typical user information, lifestyle variables, and text responses to 10 essays questions.  We present four example analyses suitable for use in undergraduate introductory probability \& statistics and data science classes that use R.  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.
+We present a dataset consisting of user profile data for 59,946 San Francisco OkCupid users (an online dating website) from June 2012.  The data set includes typical user information, lifestyle variables, and text responses to 10 essays questions.  We present four example analyses suitable for use in undergraduate introductory probability \& statistics and data science classes that use R.  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.
 
 \vspace{.1in}
 
@@ -60,7 +60,7 @@ Given that the field of data science gaining more prominence in academia and ind
 
 While precise definition of the exact difference between statistics and data science and its implications for statistics education can be debated \cite{WICKHAM:2014}, one consensus among many in statistics education circles is that at the very least statistics needs to incorporate a heavier computing component and the use of technology for both developing conceptual understanding and analyzing data \cite{GAISE:05, NOLAN:LANG:2010}.  Relatedly, in the hopes of making introductory undergraduate statistics courses more relevant, many statistics educators are placing a higher emphasis on the use of real data in the classroom, a practice the ASA's Guidelines for Assessment and Instruction in Statistics Education (GAISE) project's reports strongly encourages \cite{GAISE:05}.  Of particular importance in the success of such ambitions are the data sets considered, as they provide the context of the analyses and thus will ultimately drive student interest \cite{GOULD:2010}.
 
-It is in light of these discussions that we present this paper centering on data from the online dating website OkCupid, specifically a snapshot of San Francisco California users taken on June 2012.  We describe the dataset and present a series of example analyses along with corresponding pedagogical discussions.  The example analyses presented in this paper were used in a variety of settings at Reed College: a 90 minute introductory tutorial on R, an introductory probability and statistics class, and a follow-up two-hundred level data science class titled ``Case Studies in Statistical Analysis.''  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.  All examples are presented using the R statistical software program and make use of the \verb#mosaic#, \verb#dplyr#, \verb#stringr#, and \verb#ggplot2# packages \cite{mosaic, dplyr, stringr, ggplot2}.
+It is in light of these discussions that we present this paper centering on data from the online dating website OkCupid, specifically a snapshot of San Francisco California users taken on June 2012.  We describe the dataset and present a series of example analyses along with corresponding pedagogical discussions.  The example analyses presented in this paper were used in a variety of settings at Reed College in Portland, Oregon: a 90 minute introductory tutorial on R, an introductory probability and statistics class, and a follow-up two-hundred level data science class titled ``Case Studies in Statistical Analysis.''  The statistical and data science concepts covered include basic data visualizations, exploratory data analyses, multivariate relationships, text analysis, and logistic regression for prediction.  All examples are presented using the R statistical software program and make use of the \verb#mosaic#, \verb#dplyr#, \verb#stringr#, and \verb#ggplot2# packages \cite{mosaic, dplyr, stringr, ggplot2}.
 
 
 
@@ -83,7 +83,7 @@ profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
 n <- nrow(profiles)
 @
 
-Analysis of similar data has received much press of late, including Amy Webb's TED talk ``How I Hacked Online Dating'' \cite{TED} and Wired magazine's ``How a Math Genius Hacked OkCupid to Find True Love'' \cite{Wired}.  OkCupid co-founder Christian Rudder pens periodical analysis of their data on the OkTrends blog and has recently published a book ``Dataclysm: Who We Are When We Think No One's Looking'' describing similar data-driven insights \cite{dataclysm}.  Such publicity surrounding data-driven online dating and the salience of dating matters among students makes this dataset one with much potential to be of interest to students, hence facilitating the instruction of statistical and data science concepts.
+Analysis of similar data has received much press of late, including Amy Webb's TED talk ``How I Hacked Online Dating'' \cite{TED} and Wired magazine's ``How a Math Genius Hacked OkCupid to Find True Love'' \cite{Wired}.  OkCupid co-founder Christian Rudder pens periodical analysis of their data on the blog OkTrends (\url{http://blog.okcupid.com/}) and has recently published a book ``Dataclysm: Who We Are When We Think No One's Looking'' describing similar data-driven insights \cite{dataclysm}.  Such publicity surrounding data-driven online dating and the salience of dating matters among students makes this dataset one with much potential to be of interest to students, hence facilitating the instruction of statistical and data science concepts.
 
 Before we continue we note that even though this data consists of publicly facing material, one should proceed with caution before scraping and using data in fashion similar to ours, as the Computer Fraud and Abuse Act (CFAA) makes it a federal crime to access a computer without authorization from the owner \cite{Pando:2014}.  In our case, permission was given by the owners of the data (See Section \ref{ack}).
 
@@ -133,11 +133,11 @@ require(dplyr)
 profiles.subset <- filter(profiles, height>=55 & height <=80)
 @
 
-We compare the distributions of male and female heights using histograms.  While we could plot two separate histograms without regard to the scale of the x-axis, in Figure \ref{fig:heights_by_sex} we instead use the \verb#histogram()# function from the \verb#mosaic# package to
+We compare the distributions of male and female heights using histograms.  While we could plot two separate histograms without regard to the scale of the x-axes, in Figure \ref{fig:heights_by_sex} we instead use the \verb#histogram()# function from the \verb#mosaic# package to
 
 \begin{enumerate}
-\item Plot heights given sex by defining the formula \verb#~ height | sex#.
-\item Plot them simultaneously in a lattice plot consisting of two rows and one column of plots by setting \verb#layout=c(1,2)#
+\item Plot heights given sex by defining the formula: \verb#~ height | sex#.
+\item Plot them simultaneously in a lattice consisting of two rows and one column of plots by setting \verb#layout=c(1,2)#
 \item Plot them with bin widths matching the granularity of the observations (inches) by setting \verb#width=1#.  The \verb#histogram()# function automatically matches the $x$-axis scales for both plots.
 \end{enumerate}
 
@@ -150,7 +150,7 @@ histogram(~height | sex, width=1, layout=c(1,2), xlab="Height (in)", data=profil
 \subsubsection{Pedagogical Discussion}
 This first exercise stresses many important considerations students should keep in mind when working with real data.  Firstly, it emphasizes the importance of performing an exploratory data analysis to identify anomalous observations and confronts students with the question of what to do with them.  For example, while a height of 1 inch is clearly an outlier that needs to be removed, at what point does a height no longer become reasonable and what impact does their removal have on the conclusions?  In our case, since only a small number of observations were removed, the impact is minimal.
 
-Secondly, this exercise demonstrates the power of data visualizations as simple as histograms to convey insight and hence emphasizes the importance of putting careful thought into their construction.  In our case, while having students plot two histograms simultaneously on the same scale in order to demonstrate that males have on average greater height may seem to be a rather pedantic goal at first, we encouraged students to take a closer look at the histograms and steered their focus towards the unusual peaks at 72 inches (6 feet) for males and 64 inches (5'4'') for females.  Many of the students could explain the phenomena of the peak at 72 inches for men: sociological perceptions of the rounded height of 6 feet.  On the other hand, consensus was not as strong about perceptions of the height of 5'4'' for women.  Instructors can then refer students to the entry on OkCupid's blog OkTrends ``The Biggest Lies in Online Data''\cite{OkTrendsLies} to show they've replicated (on a smaller scale) a previous analysis and then show other analyses conducted by OkCupid.
+Secondly, this exercise demonstrates the power of data visualizations as simple as histograms to convey insight and hence emphasizes the importance of putting careful thought into their construction.  In our case, while having students plot two histograms simultaneously on the same scale in order to demonstrate that males have on average greater height may seem to be a rather pedantic goal at first, we encouraged students to take a closer look at the histograms and steered their focus towards the unusual peaks at 72 inches (6 feet) for males and 64 inches (5'4'') for females.  Many of the students could explain the phenomena of the peak at 72 inches for men: sociological perceptions of the rounded height of 6 feet.  On the other hand, consensus was not as strong about perceptions of the height of 5'4'' for women.  Instructors can then refer students to the entry on OkCupid's blog OkTrends ``The Biggest Lies in Online Data'' \cite{OkTrendsLies} to show they've replicated (on a smaller scale) a previous analysis and then show other analyses conducted by OkCupid.
 
 Further questions that can be pursued from this exercise include ``How can we question if those peaks are significant or due to chance?'', ``Are we only observing men who are just under 6 feet rounding up, or are men just over 6 feet rounding down as well?'', or ``How can we compare the distribution of listed heights on OkCupid to the actual San Francisco population's heights?''
 
@@ -311,7 +311,7 @@ Statistical concepts include the difference between practical and statistical si
 
 The richness of the essay data allows for students to verify and challenge prior sociological beliefs and preconceptions using empirical data.  Furthermore, such analyses can expose and confront students with biases, prejudices, and behaviors that they didn't know they held or exhibited.
 
-Another interesting investigation for students to pursue is to what degree do the above results hold when the groups we are comparing are further refined (grouping by sex \textit{and} sexual orientation for example).  Even bolder goals include introducing text analysis concepts such as regular expressions, inverse document frequency, natural language processing, and Latent Dirichlet Allocation\cite{LDA:2003}.
+Another interesting investigation for students to pursue is to what degree do the above results hold when the groups we are comparing are further refined (grouping by sex \textit{and} sexual orientation for example).  Even bolder goals include introducing text analysis concepts such as regular expressions, inverse document frequency, natural language processing, and Latent Dirichlet Allocation \cite{LDA:2003}.
 
 
 
@@ -325,7 +325,7 @@ Another interesting investigation for students to pursue is to what degree do th
 \subsubsection{Exercise}
 This exercise provides an opportunity to fit a predictive model for sex using logistic regression.  In order to reinforce the concepts of logistic regression, we keep things simple and consider only one predictor variable in the logistic model: height.  We restrict to only those users whose heights are reasonable as defined previously in Section \ref{section_height} and in order to to speed up computation and improve graphical outputs, we only consider a random sample of 5995 users (10\% of the data).
 
-However, to ensure the replicability of our results (in other words ensuring the same 5995 users are ``randomly'' selected), we demonstrate the use of the \verb#set.seed()# command.  R's random number generator is not completely random, but rather is \textit{pseudorandom} in that it generates values that are statistically indistinguishable from a truly random sequence of values, but are generated by a deterministic process.  This deterministic process takes in a \textit{seed} value and for the same seed value, R will generate the same sequence of values.  For example, consider generating a random sequence of the numbers 1 through 10 using the \verb#sample()# command for various seed values.  We see that setting the seed to the same (arbitrarily chosen) value 76 yields the same sequence, whereas changing the seed value to 79 yields a difference sequence.  Play around with this function to get a feel for it.
+However, to ensure the replicability of our results (in other words ensuring the same 5995 users are ``randomly'' selected each time we run the code), we demonstrate the use of the \verb#set.seed()# command.  R's random number generator is not completely random, but rather is \textit{pseudorandom} in that it generates values that are statistically indistinguishable from a truly random sequence of values, but are generated by a deterministic process.  This deterministic process takes in a \textit{seed} value and for the same seed value, R will generate the same sequence of values.  For example, consider generating a random sequence of the numbers 1 through 10 using the \verb#sample()# command for various seed values.  We see that setting the seed to the same (arbitrarily chosen) value 76 yields the same sequence, whereas changing the seed value to 79 yields a difference sequence.  Play around with this function to get a feel for it.
 
 <<cache=TRUE>>=
 set.seed(76)
@@ -398,7 +398,7 @@ We observe that linear regression (red curve) yields fitted probabilities less t
 
 However, when predicting a user's gender, just using the fitted probabilities $\widehat{p}_i$ is insufficient; a decision threshold is necessary.  In other words, a point at which if the probability of being female is exceeded, we \textit{predict} that user to be female.  Looking at the histogram of fitted probabilities, we pick an appropriate decision threshold $p^*$ such that for all users whose $\widehat{p}_i > p^*$, we predict the user to be female.  We opt for $p^* = 0.5$ and highlight this in red in Figure \ref{fig:fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table comparing the true and predicted values.
 
-<<cache=TRUE, fitted_values, fig.height=4, fig.width=4, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
+<<cache=TRUE, fitted_values, fig.height=3.5, fig.width=5, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
 profiles$p.hat <- fitted(logistic.model)
 ggplot(data=profiles, aes(x=p.hat)) +
   geom_histogram(binwidth=0.1) +
@@ -438,15 +438,13 @@ Further questions to ask of students include building a model with more than one
 \section{Conclusions}
 %
 %------------------------------------------------------------------------------
-We feel that this dataset is an ideal one for use in introductory statistics and data science classes as the salience of the dataset provides students with an interesting vehicle for learning important concepts.  By presenting questions to students that allow for the use of their background knowledge, whether it be from the news, stereotypes, sociological knowledge, students are much better primed to absorb statistical lessons.  Furthermore,
+We present a dataset consisting of actual San Francisco OkCupid users' profiles in June 2012 and present example analyses (of different levels of sophistication) for direct use in the classroom in a similar fashion to Horton et al. \cite{hort:baum:2015}.  We feel that this dataset is an ideal one for use in introductory statistics and data science classes as the salience of the dataset provides students with an interesting vehicle for learning important concepts.  By presenting questions to students that allow for the use of their background knowledge, whether it be from the news, stereotypes, sociological knowledge, students are much better primed to absorb statistical lessons.  Furthermore,
 
 \begin{enumerate}
 \item The data consists of a rich array of categorical, ordinal, numerical, and text variables.
 \item This is an instance of real data that is messy, has many suspicious values that need to be addressed, and includes categorical variables of a complicated nature (for instance, there are 218 unique responses to the ethnicity variable).  This reinforces to students that time and energy must be often invested into preparing the data for analysis.
 \item The dataset is of modest size.  While $n = \Sexpr{n}$ is not an overwhelmingly large number of observations, it is still much larger than typical datasets used in many introductory probability and statistics classes.
 \end{enumerate}
-
-For \cite{hort:baum:2015}
 
 All the files, including the original data and the R Sweave \verb#.Rmd# file used to create this document, can be found at \url{https://github.com/rudeboybert/JSE_OkCupid}.  Note that the file \verb#profiles.csv.zip# must be unzipped first.  All R code used in this document can be outputted into an R script file by using the \verb#purl()# command in the \verb#knitr# package on the \verb#JSE.Rnw# R Sweave document.
 <<echo=TRUE, message=FALSE, eval=FALSE>>=
