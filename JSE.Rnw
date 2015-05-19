@@ -474,7 +474,7 @@ purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
 \section{Acknowledgements}\label{ack}
 %
 %------------------------------------------------------------------------------
-First, we thank OkCupid president and co-founder Christian Rudder for agreeing to our use of this dataset (under the condition that the dataset remains public).  Second, we thank Everett Wetchler (\href{mailto:everett.wetchler@gmail.com}{\nolinkurl{everett.wetchler@gmail.com}}) of Bayes Impact \url{http://www.bayesimpact.org/about} for providing the data; the Python script used to scrape the data can be found at \url{https://github.com/evee746/okcupid}.  Finally, we thank the reviewers for their helpful comments.
+First, we thank OkCupid president and co-founder Christian Rudder for agreeing to our use of this dataset (under the condition that the dataset remains public).  Second, we thank Everett Wetchler \href{mailto:everett.wetchler@gmail.com}{\nolinkurl{everett.wetchler@gmail.com}} for providing the data; the Python script used to scrape the data can be found at \url{https://github.com/evee746/okcupid}.  Finally, we thank the reviewers for their helpful comments.
 
 
 
