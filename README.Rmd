@@ -6,6 +6,13 @@ output:
     keep_md: yes
 ---
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(mosaic))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(knitr))
+```
+
 Data and code for "OkCupid Profile Data for Introductory Statistics and Data Science Courses":
 
 * `JSE.bib`:  bibliography file
@@ -18,13 +25,6 @@ Data and code for "OkCupid Profile Data for Introductory Statistics and Data Sci
 ## Preview
 
 ### Distribution of Male and Female Heights
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-suppressPackageStartupMessages(library(mosaic))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(knitr))
-```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
@@ -54,7 +54,7 @@ mosaicplot(sex.by.orientation, main="Sex vs Orientation", las=1)
 
 ### Logistic Regression to Predict Gender
 
-Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
+Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height x gender) pair.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 profiles <- filter(profiles, height>=55 & height <=80)

@@ -1,6 +1,8 @@
 # OkCupid Profile Data for Intro Stats and Data Science Courses
 Albert Y. Kim and Adriana Escobedo-Land  
 
+
+
 Data and code for "OkCupid Profile Data for Introductory Statistics and Data Science Courses":
 
 * `JSE.bib`:  bibliography file
@@ -13,8 +15,6 @@ Data and code for "OkCupid Profile Data for Introductory Statistics and Data Sci
 ## Preview
 
 ### Distribution of Male and Female Heights
-
-
 
 
 
@@ -31,7 +31,7 @@ A mosaicplot of the cross-classification of the 59946 users' sex and sexual orie
 
 ### Logistic Regression to Predict Gender
 
-Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
+Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height x gender) pair.
 
 ![](README_files/figure-html/unnamed-chunk-5-1.png) 
 
