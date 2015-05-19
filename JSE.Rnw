@@ -146,7 +146,7 @@ We compare the distributions of male and female heights using histograms.  While
 
 
 <<cache=TRUE, heights_by_sex, fig.height=7, fig.width=10, fig.cap="Histograms of user heights split by sex.", fig.align='center'>>=
-histogram(~height | sex, width=1, layout=c(1,2), xlab="Height (in)", data=profiles.subset)
+histogram(~height | sex, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
 @
 
 
@@ -351,7 +351,7 @@ require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_point() +
-  xlab("Height (in.)") +
+  xlab("Height in inches") +
   ylab("Is female?")
 @
 
@@ -360,7 +360,7 @@ This plot is not very useful, as the overlap of the points makes it difficult fo
 <<cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'>>=
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  xlab("Height (in.)") +
+  xlab("Height in inches") +
   ylab("Is female?")
 @
 
@@ -396,7 +396,7 @@ inverse.logit <- function(x, b){
 }
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  xlab("Height (in.)") +
+  xlab("Height in inches") +
   ylab("Is female?") +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
   stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)

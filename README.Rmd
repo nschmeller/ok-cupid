@@ -14,3 +14,83 @@ Data and code for "OkCupid Profile Data for Introductory Statistics and Data Sci
 * `JSE.R`:  R code used in document
 * `okcupid_codebook.txt`:  codebook for all variables
 * `profiles.csv.zip`: CSV file of profile data (unzip this first)
+
+## Preview
+
+### Distribution of Male and Female Heights
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(mosaic))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(knitr))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+profiles.subset <- 
+  filter(profiles, height>=55 & height <=80) %>%
+  mutate(
+    sex = ifelse(sex == "m", "male", sex),
+    sex = ifelse(sex == "f", "female", sex)
+  )
+histogram(~height | sex, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+```
+
+
+
+### Joint Distribution of Sex and Sexual Orientation
+
+A mosaicplot of the cross-classification of the `r nrow(profiles)` users' sex and sexual orientation:  
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=6}
+sex.by.orientation <- tally(~sex + orientation, data=profiles)
+mosaicplot(sex.by.orientation, main="Sex vs Orientation", las=1)
+```
+
+
+### Logistic Regression to Predict Gender
+
+Linear regression (in red) and logistic regression (in blue) compared.  Note both the $x$-values (height) and $y$-values (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+profiles <- filter(profiles, height>=55 & height <=80)
+set.seed(76)
+profiles <- sample_n(profiles, 5995)
+profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
+
+# Linear Regression
+linear.model <- lm(is.female ~ height, data=profiles)
+b1 <- coef(linear.model)
+
+# Logistic Regression
+logistic.model <- glm(is.female ~ height, family=binomial, data=profiles)
+b2 <- coefficients(logistic.model)
+
+inverse.logit <- function(x, b){
+  linear.equation <- b[1] + b[2]*x
+  1/(1+exp(-linear.equation))
+}
+ggplot(data=profiles, aes(x=height, y=is.female)) +
+  geom_jitter(position = position_jitter(width = .2, height=.17)) +
+  xlab("Height in inches") +
+  ylab("Is female?") +
+  geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
+  stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)
+```
+
+Fitted probabilities $\widehat{p}_i$ of each user being female along with decision threshold $p^*$ (in red) used to predict if user is female or not.  
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+profiles$p.hat <- fitted(logistic.model)
+ggplot(data=profiles, aes(x=p.hat)) +
+  geom_histogram(binwidth=0.1) +
+  xlab(expression(hat(p))) +
+  ylab("Frequency") +
+  xlim(c(0,1)) +
+  geom_vline(xintercept=0.5, col="red", size=1.2)
+```
+
