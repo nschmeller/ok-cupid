@@ -31,11 +31,11 @@ A mosaicplot of the cross-classification of the 59946 users' sex and sexual orie
 
 ### Logistic Regression to Predict Gender
 
-Linear regression (in red) and logistic regression (in blue) compared.  Note both the $x$-values (height) and $y$-values (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
+Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
 
 ![](README_files/figure-html/unnamed-chunk-5-1.png) 
 
-Fitted probabilities $\widehat{p}_i$ of each user being female along with decision threshold $p^*$ (in red) used to predict if user is female or not.  
+Fitted probabilities p-hat of each user being female along witha decision threshold (in red) used to predict if user is female or not.  
 
 ![](README_files/figure-html/unnamed-chunk-6-1.png) 
 

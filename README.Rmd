@@ -54,7 +54,7 @@ mosaicplot(sex.by.orientation, main="Sex vs Orientation", las=1)
 
 ### Logistic Regression to Predict Gender
 
-Linear regression (in red) and logistic regression (in blue) compared.  Note both the $x$-values (height) and $y$-values (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
+Linear regression (in red) and logistic regression (in blue) compared.  Note both the x-axis (height) and y-axis (is female: 1 if user is female, 0 if user is male) have random jitter added to better visualize the number of points involved for each (height, gender) pair.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 profiles <- filter(profiles, height>=55 & height <=80)
@@ -82,7 +82,7 @@ ggplot(data=profiles, aes(x=height, y=is.female)) +
   stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)
 ```
 
-Fitted probabilities $\widehat{p}_i$ of each user being female along with decision threshold $p^*$ (in red) used to predict if user is female or not.  
+Fitted probabilities p-hat of each user being female along witha decision threshold (in red) used to predict if user is female or not.  
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 profiles$p.hat <- fitted(logistic.model)
