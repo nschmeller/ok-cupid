@@ -6,7 +6,7 @@
 
 \begin{document}
 
-<<echo=FALSE, message=FALSE, warning=FALSE>>=
+<<echo=FALSE, warning=FALSE, message=FALSE>>=
 # The following packages must be installed
 library(xtable)
 library(stringr)
@@ -81,7 +81,7 @@ The data consists of the public profiles of 59,946 OkCupid users who were living
 
 Variables include typical user information (such as sex, sexual orientation, age, and ethnicity) and lifestyle variables (such as diet, drinking habits, smoking habits).  Furthermore, text responses to the 10 essay questions posed to all OkCupid users are included as well, such as ``My Self Summary'', ``The first thing people usually notice about me...'', and ``On a typical Friday night I am...''  For a complete list of variables and more details, see the accompanying codebook \verb#okcupid_codebook.txt#.  We load the data as follows:
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
 n <- nrow(profiles)
 @
@@ -123,7 +123,7 @@ For each question, we present an exercise as would be given to students in a lab
 We compare the distribution of male and female OkCupid users' heights.  Height is one of 3 numerical variables in this dataset (the others being age and income).  This provides us an opportunity to investigate numerical summaries using the \verb#favstats()# function from the \verb#mosaic# package:
 
 \begin{center}
-<<cache=TRUE, all_heights, fig.height=4, fig.width=6, fig.cap="Heights of all users.", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, all_heights, fig.height=4, fig.width=6, fig.cap="Heights of all users.", fig.align='center'>>=
 require(mosaic)
 favstats(height, data=profiles)
 @
@@ -131,7 +131,7 @@ favstats(height, data=profiles)
 
 We observe that some of the heights are nonsensical, including heights of 1 inch and 95 inches (equaling 7'11'').  We deem heights between 55 and 80 inches to be reasonable and remove the rest.  While there is potential bias in discarding users with what we deem non-reasonable heights, since out of the \Sexpr{n} users there are only \Sexpr{sum(profiles$height < 55 | profiles$height > 80, na.rm=TRUE)} who would be discarded, the effect would not be substantial.  Therefore we keep only those users with heights between 55 and 80 inches using the \verb#filter()# function from the \verb#dplyr# package:
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 require(dplyr)
 profiles.subset <- filter(profiles, height>=55 & height <=80)
 @
@@ -145,8 +145,9 @@ We compare the distributions of male and female heights using histograms.  While
 \end{enumerate}
 
 
-<<cache=TRUE, heights_by_sex, fig.height=7, fig.width=10, fig.cap="Histograms of user heights split by sex.", fig.align='center'>>=
-histogram(~height | sex, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+<<cache=TRUE, warning=FALSE, message=FALSE, heights_by_sex, fig.height=7, fig.width=10, fig.cap="Histograms of user heights split by sex.", fig.align='center'>>=
+histogram(~height | sex, width=1, layout=c(1,2), xlab="Height in inches",
+          data=profiles.subset)
 @
 
 
@@ -169,7 +170,7 @@ Further questions that can be pursued from this exercise include ``How can we qu
 \subsubsection{Exercise}
 Since among the most important considerations in assessing a potential mate are their sex and sexual orientation, in this exercise we investigate the relationship between these two variables.  At the time, OkCupid allowed for two possible sex choices (male or female) and three possible sexual orientation (gay, bisexual, or straight)\footnote{OkCupid has since relaxed these categorizations to allow for a broader range of choices for both sex and sexual orientation.}.  First, we perform a basic exploratory data analysis on these variables using barcharts in Figure \ref{fig:sex_and_orientation}:
 
-<<cache=TRUE, sex_and_orientation, fig.height=4, fig.width=8, fig.cap="Distributions of sex and sexual orientation.", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, sex_and_orientation, fig.height=4, fig.width=8, fig.cap="Distributions of sex and sexual orientation.", fig.align='center'>>=
 par(mfrow=c(1, 2))
 barplot(table(profiles$sex)/n, xlab="sex", ylab="proportion")
 barplot(table(profiles$orientation)/n, xlab="orientation", ylab="proportion")
@@ -177,7 +178,7 @@ barplot(table(profiles$orientation)/n, xlab="orientation", ylab="proportion")
 
 However, in order to accurately portray the dating landscape we can't just consider the \textbf{marginal distributions} of these variables, we must consider their \textbf{joint} and \textbf{conditional distributions} i.e. the cross-classification of the two variables.  We describe the distribution of sexual orientation conditional on sex; for example, of all females (the condition) what proportion are bisexual?  We do this using the \verb#tally()# function from the \verb#mosaic# package and ensure both columns sum to 1 by setting \verb#format='proportion'#.  Furthermore, we visualize their joint distribution, as represented by their contingency table, via the mosaicplot shown in Figure \ref{fig:sex_by_orientation}.
 
-<<cache=TRUE, sex_by_orientation, fig.height=4, fig.width=4, fig.cap="Cross-classification of sex and sexual orientation.", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, sex_by_orientation, fig.height=4, fig.width=4, fig.cap="Cross-classification of sex and sexual orientation.", fig.align='center'>>=
 tally(orientation ~ sex, data=profiles, format='proportion')
 sex.by.orientation <- tally(~sex + orientation, data=profiles)
 sex.by.orientation
@@ -209,10 +210,11 @@ The next exercise focuses on the responses to the essay questions, providing an 
 \begin{itemize}
 \item Uses the \verb#select()# function from the \verb#dplyr# package to select the 10 essay columns as identified by the fact they \verb#starts_with("essay")#.
 \item For each user, concatenates the 10 columns to form a single character string.  The code applies the function \verb#paste(x, collapse=" ")# to every essay, where \verb#x# is a user's set of 10 essay responses and the \verb#paste()# function collapses \verb#x# across columns while separating the elements by a space.  We do this for each set of essays (i.e. each row of \verb#essays#) via the \verb#apply()# function and with the \verb#MARGIN# argument set to \verb#1#.
-\item Replace all HTML line breaks (\verb#\n#) and paragraph breaks (\verb#<br />#) with spaces using the \verb#str_replace_all()# function from the \verb#stringr# package to make the outputs more readable.
+\item Replace all HTML line breaks (\verb#\n#) and paragraph breaks (\verb#<br />#) with spaces using the\\
+\verb#str_replace_all()# function from the \verb#stringr# package to make the outputs more readable.
 \end{itemize}
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 require(stringr)
 essays <- select(profiles, starts_with("essay"))
 essays <- apply(essays, MARGIN=1, FUN=paste, collapse=" ")
@@ -222,12 +224,12 @@ essays <- str_replace_all(essays, "<br />", " ")
 
 We ask:  Do male and female OkCupid users use words at different rates in their essay responses?  We search for the presence of a word in a user's essays using the  \verb#str_detect()# function in the \verb#stringr# package.  We then use the \verb#tally()# function illustrated in Section \ref{sex_by_sexual_orientation} to compute the distribution conditional on sex.  For example, the word ``book'' is used in 62\% of female profiles and 55\% of male profiles.  In Table \ref{tab:word_use} we make similar comparisons for the use of the words ``travel'', ``food'', ``wine'', and ``beer.''
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 profiles$has.book <- str_detect(essays, "book")
 tally(has.book ~ sex, profiles, format='proportion')
 @
 
-<<echo=FALSE, cache=TRUE, results='asis'>>=
+<<echo=FALSE, cache=TRUE, warning=FALSE, message=FALSE, results='asis'>>=
 queries <- c("travel", "food", "wine", "beer")
 output <- data.frame(word=queries, female=rep(0, length(queries)), male=rep(0, length(queries)))
 for(i in 1:length(queries)) {
@@ -241,7 +243,7 @@ print(xtable(output, digits=c(0, 0, 3, 3), caption ="Proportions of each sex usi
 
 We futher study the co-occurrence of words, such as ``wine'' and ``travel'', visualizing their relationship in a mosaicplot in Figure \ref{fig:travel_vs_wine}.
 
-<<cache=TRUE, travel_vs_wine, fig.height=3.5, fig.width=3.5, fig.cap="Co-occurrence of `travel' and `wine.'", fig.align='center'>>=profiles$has.travel <- str_detect(essays, "travel")
+<<cache=TRUE, warning=FALSE, message=FALSE, travel_vs_wine, fig.height=3.5, fig.width=3.5, fig.cap="Co-occurrence of `travel' and `wine.'", fig.align='center'>>=profiles$has.travel <- str_detect(essays, "travel")
 profiles$has.wine <- str_detect(essays, "wine")
 profiles$has.travel <- str_detect(essays, "travel")
 travel.vs.wine <- tally(~has.travel + has.wine, data=profiles)
@@ -250,7 +252,7 @@ mosaicplot(travel.vs.wine, main="", xlab="travel", ylab="wine")
 
 We can also formally evaluate the statistical significance of the difference in the use of the word ``football'' via a two-sample proportions test using the \verb#prop.test()# function where you specify vectors \verb#x# of the successes of each group (the first row of \verb#results#) and \verb#n# of the numbers in each group (the sums of the columns of \verb#results#).  While the difference of around 0.5\% yields a $p$-value that is small suggesting statistical significance, it can be argued that this difference is of little practical significance.
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 profiles$has.football <- str_detect(essays, "football")
 results <- tally(~ has.football + sex, data=profiles)
 prop.test(x=results[1, ], n=colSums(results), alternative="two.sided")
@@ -259,7 +261,7 @@ prop.test(x=results[1, ], n=colSums(results), alternative="two.sided")
 And finally, consider the following fun exercise: we generate the top 500 words used by males and females respectively.  The following code uses the ``pipe'' \verb#%>%#
 operator from the \verb#dplyr# package to use the output of one function as the first argument for the next function.  For example, the following two lines of code perform the identical task:
 
-<<cache=TRUE, eval=FALSE>>=
+<<cache=TRUE, eval=FALSE, warning=FALSE, message=FALSE>>=
 c(1.1, 2.1, 3.1, 4.1) %>% sum() %>% round()
 round(sum(c(1.1, 2.1, 3.1, 4.1)))
 @
@@ -275,7 +277,7 @@ This allows us to avoid having multiple R functions nested in a large number of 
 \item Extracts the words (and not the frequency counts), which are the \verb#names# of each element of the vector.
 \end{itemize}
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 male.words <- subset(essays, profiles$sex == "m") %>%
   str_split(" ") %>%
   unlist() %>%
@@ -291,7 +293,8 @@ female.words <- subset(essays, profiles$sex == "f") %>%
 @
 
 However, for both males and females, the top words are not interesting in that they include many particles such as ``I'', ``and'', and ``the'' (see the top 25 below).    Therefore, we consider the difference in words mentioned by males and similarly for females, by taking the difference in sets using the \verb#setdiff()# function.  Note that we didn't correct for punctuation.
-<<cache=TRUE>>=
+
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 # Top 25 male words:
 male.words[1:25]
 # Top 25 female words
@@ -339,7 +342,7 @@ sample(1:10)
 
 We proceed by setting the seed value to the (arbitrarily chosen) value 76 and sample 5995 users at random by using the \verb#sample_n()# function from the \verb#dplyr# package
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 profiles <- filter(profiles, height>=55 & height <=80)
 set.seed(76)
 profiles <- sample_n(profiles, 5995)
@@ -347,7 +350,7 @@ profiles <- sample_n(profiles, 5995)
 
 We convert the \verb#sex# variable to a binary \verb#is.female# variable, whose value is \verb#1# if the user is female and \verb#0# if the user is male, using the \verb#ifelse()# function.  Alternatively, we could have coded \verb#is.female# with \verb#TRUE#/\verb#FALSE# values, but for plotting purposes we code this variable using \verb#1#/\verb#0# numerical values.  We create the \verb#is.female# variable using the \verb#mutate()# function from the \verb#dplyr# package, which allows us create new variables from existing ones.  We plot the points as in Figure \ref{fig:is_female_vs_height}, making use of the \verb#ggplot2# package and defining an initial base plot.
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE>>=
 require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
 base.plot <- ggplot(data=profiles, aes(x=height, y=is.female)) +
@@ -359,26 +362,26 @@ base.plot <- ggplot(data=profiles, aes(x=height, y=is.female)) +
 
 We modify this base plot as we go:
 
-<<cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'>>=
 base.plot + geom_point()
 @
 
 This plot is not very useful, as the overlap of the points makes it difficult for determine how many points are involved.  We use the \verb#geom_jitter()# function to add a little random noise to each clump of points both along the $x$ and $y$ axes as shown in Figure \ref{fig:is_female_vs_height_jittered}.
 
-<<cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'>>=
 base.plot + geom_jitter(position = position_jitter(width = .2, height=.2))
 @
 
 We fit both linear and logistic regression models using height as the sole predictor.  In order to summarize the results, we use the \verb#msummary()# function from the \verb#mosaic# package, as its output is much more digestible than the output of the standard \verb#summary()# function.  Furthermore, we extract the coefficients of the linear model using the \verb#coef()# function.
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE,>>=
 linear.model <- lm(is.female ~ height, data=profiles)
 msummary(linear.model)
 b1 <- coef(linear.model)
 b1
 @
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE, message=FALSE,>>=
 logistic.model <- glm(is.female ~ height, family=binomial, data=profiles)
 msummary(logistic.model)
 b2 <- coefficients(logistic.model)
@@ -393,7 +396,7 @@ In both cases, we observe that the coefficient associated with height is negativ
 = \frac{1}{1+\exp\left(-(\widehat{\beta}_0 + \widehat{\beta}_1 \times \mbox{height}_i)\right)}
 \]
 
-<<cache=TRUE, is_female_vs_height_logistic_vs_linear, fig.height=3, fig.width=6, fig.cap="Predicted linear (red) and logistic (blue) regression curves.", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, is_female_vs_height_logistic_vs_linear, fig.height=3, fig.width=6, fig.cap="Predicted linear (red) and logistic (blue) regression curves.", fig.align='center'>>=
 inverse.logit <- function(x, b){
   linear.equation <- b[1] + b[2]*x
   1/(1+exp(-linear.equation))
@@ -407,7 +410,7 @@ We observe that linear regression (red curve) yields fitted probabilities greate
 
 However, when predicting a user's gender, just using the fitted probabilities $\widehat{p}_i$ is insufficient; a decision threshold is necessary.  In other words, a point at which if the fitted probability of a user being female is exceeded, we \textit{predict} that user to be female.  Looking at the histogram of fitted probabilities, we pick a decision threshold $p^*$ such that for all users with $\widehat{p}_i > p^*$, we predict those users to be female.  We opt for $p^* = 0.5$ since it splits the values somewhat nicely and highlight this in red in Figure \ref{fig:fitted_values}.  In order to evaluate the performance of our model and our decision threshold, we produce the contingency table comparing the true (\verb#is.female#) and predicted (\verb#predicted.female#) values:
 
-<<cache=TRUE, fitted_values, fig.height=3.5, fig.width=5, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
+<<cache=TRUE, warning=FALSE, message=FALSE, fitted_values, fig.height=3.5, fig.width=5, fig.cap="Fitted probabilities of being female and decision threshold (in red).", fig.align='center'>>=
 profiles$p.hat <- fitted(logistic.model)
 ggplot(data=profiles, aes(x=p.hat)) +
   geom_histogram(binwidth=0.1) +
@@ -419,7 +422,7 @@ profiles <- mutate(profiles, predicted.female = p.hat >= 0.5)
 tally(~is.female + predicted.female, data=profiles)
 @
 
-<<cache=TRUE, echo=FALSE>>=
+<<cache=TRUE, echo=FALSE, warning=FALSE, message=FALSE>>=
 # Compute misclassification error rate
 perf.table <- table(truth=profiles$is.female, prediction=profiles$predicted.female)
 misclass.error <- 1 - sum(diag(perf.table))/sum(perf.table)
@@ -457,7 +460,7 @@ We present a dataset consisting of actual San Francisco OkCupid users' profiles 
 \end{enumerate}
 
 All the files, including the original data and the R Sweave \verb#JSE.Rnw# file used to create this document, can be found at \url{https://github.com/rudeboybert/JSE_OkCupid}.  Note that the file \verb#profiles.csv.zip# must be unzipped first.  All R code used in this document can be outputted into an R script file by using the \verb#purl()# function in the \verb#knitr# package on \verb#JSE.Rnw#:
-<<echo=TRUE, message=FALSE, eval=FALSE>>=
+<<echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE>>=
 library(knitr)
 purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
 @
