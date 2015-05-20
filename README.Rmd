@@ -76,6 +76,7 @@ inverse.logit <- function(x, b){
 }
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.17)) +
+  scale_y_continuous(breaks=0:1) +
   xlab("Height in inches") +
   ylab("Is female?") +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
