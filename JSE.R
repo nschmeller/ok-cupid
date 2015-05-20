@@ -108,21 +108,20 @@ profiles <- filter(profiles, height>=55 & height <=80)
 set.seed(76)
 profiles <- sample_n(profiles, 5995)
 
-## ----cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'----
+## ----cache=TRUE----------------------------------------------------------
 require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_point() +
+base.plot <- ggplot(data=profiles, aes(x=height, y=is.female)) +
   scale_y_continuous(breaks=0:1) +
+  theme(panel.grid.minor.y = element_blank()) +
   xlab("Height in inches") +
   ylab("Is female?")
 
+## ----cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'----
+base.plot + geom_point()
+
 ## ----cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'----
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  scale_y_continuous(breaks=0:1) +
-  xlab("Height in inches") +
-  ylab("Is female?")
+base.plot + geom_jitter(position = position_jitter(width = .2, height=.2))
 
 ## ----cache=TRUE----------------------------------------------------------
 linear.model <- lm(is.female ~ height, data=profiles)
@@ -141,11 +140,7 @@ inverse.logit <- function(x, b){
   linear.equation <- b[1] + b[2]*x
   1/(1+exp(-linear.equation))
 }
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  scale_y_continuous(breaks=0:1) +
-  xlab("Height in inches") +
-  ylab("Is female?") +
+base.plot + geom_jitter(position = position_jitter(width = .2, height=.2)) +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
   stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)
 
