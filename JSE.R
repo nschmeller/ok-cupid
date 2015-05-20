@@ -21,7 +21,7 @@ require(dplyr)
 profiles.subset <- filter(profiles, height>=55 & height <=80)
 
 ## ----cache=TRUE, heights_by_sex, fig.height=7, fig.width=10, fig.cap="Histograms of user heights split by sex.", fig.align='center'----
-histogram(~height | sex, width=1, layout=c(1,2), xlab="Height (in)", data=profiles.subset)
+histogram(~height | sex, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
 
 ## ----cache=TRUE, sex_and_orientation, fig.height=4, fig.width=8, fig.cap="Distributions of sex and sexual orientation.", fig.align='center'----
 par(mfrow=c(1, 2))
@@ -37,7 +37,7 @@ mosaicplot(sex.by.orientation, main="Sex vs Orientation", las=1)
 ## ----cache=TRUE----------------------------------------------------------
 require(stringr)
 essays <- select(profiles, starts_with("essay"))
-essays <- apply(essays, 1, paste, collapse=" ")
+essays <- apply(essays, MARGIN=1, FUN=paste, collapse=" ")
 essays <- str_replace_all(essays, "\n", " ")
 essays <- str_replace_all(essays, "<br />", " ")
 
@@ -64,14 +64,12 @@ mosaicplot(travel.vs.wine, main="", xlab="travel", ylab="wine")
 
 ## ----cache=TRUE----------------------------------------------------------
 profiles$has.football <- str_detect(essays, "football")
-results <- table(profiles$has.football, profiles$sex)
-results
-# Set x to be the second row of the results, and n to be the column sums.
-prop.test(x=results[2, ], n=colSums(results), alternative="two.sided")
+results <- tally(~ has.football + sex, data=profiles)
+prop.test(x=results[1, ], n=colSums(results), alternative="two.sided")
 
 ## ----cache=TRUE, eval=FALSE----------------------------------------------
-## c(1, 2, 3, 4, NA) %>% sum(na.rm=TRUE)
-## sum(c(1, 2, 3, 4, NA), na.rm=TRUE)
+## c(1.1, 2.1, 3.1, 4.1) %>% sum() %>% round()
+## round(sum(c(1.1, 2.1, 3.1, 4.1)))
 
 ## ----cache=TRUE----------------------------------------------------------
 male.words <- subset(essays, profiles$sex == "m") %>%
@@ -115,13 +113,15 @@ require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_point() +
-  xlab("Height (in.)") +
+  scale_y_continuous(breaks=0:1) +
+  xlab("Height in inches") +
   ylab("Is female?")
 
 ## ----cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'----
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  xlab("Height (in.)") +
+  scale_y_continuous(breaks=0:1) +
+  xlab("Height in inches") +
   ylab("Is female?")
 
 ## ----cache=TRUE----------------------------------------------------------
@@ -143,7 +143,8 @@ inverse.logit <- function(x, b){
 }
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  xlab("Height (in.)") +
+  scale_y_continuous(breaks=0:1) +
+  xlab("Height in inches") +
   ylab("Is female?") +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
   stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)
@@ -165,5 +166,6 @@ perf.table <- table(truth=profiles$is.female, prediction=profiles$predicted.fema
 misclass.error <- 1 - sum(diag(perf.table))/sum(perf.table)
 
 ## ----echo=TRUE, message=FALSE, eval=FALSE--------------------------------
+## library(knitr)
 ## purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
 

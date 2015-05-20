@@ -351,6 +351,7 @@ require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_point() +
+  scale_y_continuous(breaks=0:1) +
   xlab("Height in inches") +
   ylab("Is female?")
 @
@@ -360,6 +361,7 @@ This plot is not very useful, as the overlap of the points makes it difficult fo
 <<cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'>>=
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
+  scale_y_continuous(breaks=0:1) +
   xlab("Height in inches") +
   ylab("Is female?")
 @
@@ -396,6 +398,7 @@ inverse.logit <- function(x, b){
 }
 ggplot(data=profiles, aes(x=height, y=is.female)) +
   geom_jitter(position = position_jitter(width = .2, height=.2)) +
+  scale_y_continuous(breaks=0:1) +
   xlab("Height in inches") +
   ylab("Is female?") +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
@@ -457,6 +460,7 @@ We present a dataset consisting of actual San Francisco OkCupid users' profiles 
 
 All the files, including the original data and the R Sweave \verb#JSE.Rnw# file used to create this document, can be found at \url{https://github.com/rudeboybert/JSE_OkCupid}.  Note that the file \verb#profiles.csv.zip# must be unzipped first.  All R code used in this document can be outputted into an R script file by using the \verb#purl()# function in the \verb#knitr# package on \verb#JSE.Rnw#:
 <<echo=TRUE, message=FALSE, eval=FALSE>>=
+library(knitr)
 purl(input="JSE.Rnw", output="JSE.R", quiet=TRUE)
 @
 
