@@ -338,32 +338,35 @@ sample(1:10)
 @
 
 We proceed by setting the seed value to the (arbitrarily chosen) value 76 and sample 5995 users at random by using the \verb#sample_n()# function from the \verb#dplyr# package
+
 <<cache=TRUE>>=
 profiles <- filter(profiles, height>=55 & height <=80)
 set.seed(76)
 profiles <- sample_n(profiles, 5995)
 @
 
-We convert the \verb#sex# variable to a binary \verb#is.female# variable, whose value is \verb#1# if the user is female and \verb#0# if the user is male, using the \verb#ifelse()# function.  Alternatively, we could have coded \verb#is.female# with \verb#TRUE#/\verb#FALSE# values, but for plotting purposes we code this variable using \verb#1#/\verb#0# numerical values.  We create the \verb#is.female# variable using the \verb#mutate()# function from the \verb#dplyr# package, which allows us create new variables from existing ones.  We plot the points as in Figure \ref{fig:is_female_vs_height}, making use of the \verb#ggplot2# package.
+We convert the \verb#sex# variable to a binary \verb#is.female# variable, whose value is \verb#1# if the user is female and \verb#0# if the user is male, using the \verb#ifelse()# function.  Alternatively, we could have coded \verb#is.female# with \verb#TRUE#/\verb#FALSE# values, but for plotting purposes we code this variable using \verb#1#/\verb#0# numerical values.  We create the \verb#is.female# variable using the \verb#mutate()# function from the \verb#dplyr# package, which allows us create new variables from existing ones.  We plot the points as in Figure \ref{fig:is_female_vs_height}, making use of the \verb#ggplot2# package and defining an initial base plot.
 
-<<cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'>>=
+<<cache=TRUE>>=
 require(ggplot2)
 profiles <- mutate(profiles, is.female = ifelse(sex=="f", 1, 0))
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_point() +
+base.plot <- ggplot(data=profiles, aes(x=height, y=is.female)) +
   scale_y_continuous(breaks=0:1) +
+  theme(panel.grid.minor.y = element_blank()) +
   xlab("Height in inches") +
   ylab("Is female?")
+@
+
+We modify this base plot as we go:
+
+<<cache=TRUE, is_female_vs_height, fig.height=3, fig.width=6, fig.cap="Female indicator vs height.", fig.align='center'>>=
+base.plot + geom_point()
 @
 
 This plot is not very useful, as the overlap of the points makes it difficult for determine how many points are involved.  We use the \verb#geom_jitter()# function to add a little random noise to each clump of points both along the $x$ and $y$ axes as shown in Figure \ref{fig:is_female_vs_height_jittered}.
 
 <<cache=TRUE, is_female_vs_height_jittered, fig.height=3, fig.width=6, fig.cap="Female indicator vs height (jittered).", fig.align='center'>>=
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  scale_y_continuous(breaks=0:1) +
-  xlab("Height in inches") +
-  ylab("Is female?")
+base.plot + geom_jitter(position = position_jitter(width = .2, height=.2))
 @
 
 We fit both linear and logistic regression models using height as the sole predictor.  In order to summarize the results, we use the \verb#msummary()# function from the \verb#mosaic# package, as its output is much more digestible than the output of the standard \verb#summary()# function.  Furthermore, we extract the coefficients of the linear model using the \verb#coef()# function.
@@ -390,17 +393,12 @@ In both cases, we observe that the coefficient associated with height is negativ
 = \frac{1}{1+\exp\left(-(\widehat{\beta}_0 + \widehat{\beta}_1 \times \mbox{height}_i)\right)}
 \]
 
-
 <<cache=TRUE, is_female_vs_height_logistic_vs_linear, fig.height=3, fig.width=6, fig.cap="Predicted linear (red) and logistic (blue) regression curves.", fig.align='center'>>=
 inverse.logit <- function(x, b){
   linear.equation <- b[1] + b[2]*x
   1/(1+exp(-linear.equation))
 }
-ggplot(data=profiles, aes(x=height, y=is.female)) +
-  geom_jitter(position = position_jitter(width = .2, height=.2)) +
-  scale_y_continuous(breaks=0:1) +
-  xlab("Height in inches") +
-  ylab("Is female?") +
+base.plot + geom_jitter(position = position_jitter(width = .2, height=.2)) +
   geom_abline(intercept=b1[1], slope=b1[2], col="red", size=2) +
   stat_function(fun = inverse.logit, args=list(b=b2), color="blue", size=2)
 @
