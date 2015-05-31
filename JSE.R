@@ -29,7 +29,7 @@ par(mfrow=c(1, 2))
 barplot(table(profiles$sex)/n, xlab="sex", ylab="proportion")
 barplot(table(profiles$orientation)/n, xlab="orientation", ylab="proportion")
 
-## ----cache=TRUE, warning=FALSE, message=FALSE, sex_by_orientation, fig.height=4, fig.width=4, fig.cap="Cross-classification of sex and sexual orientation.", fig.align='center'----
+## ----cache=TRUE, warning=FALSE, message=FALSE, sex_by_orientation, fig.height=3.5, fig.width=4, fig.cap="Joint distribution of sex and sexual orientation.", fig.align='center'----
 tally(orientation ~ sex, data=profiles, format='proportion')
 sex.by.orientation <- tally(~sex + orientation, data=profiles)
 sex.by.orientation
@@ -91,12 +91,14 @@ female.words <- subset(essays, profiles$sex == "f") %>%
 male.words[1:25]
 # Top 25 female words
 female.words[1:25]
+
+## ----cache=TRUE, warning=FALSE, message=FALSE----------------------------
 # Words in the males top 500 that weren't in the females' top 500:
 setdiff(male.words[1:500], female.words[1:500])
 # Words in the male top 500 that weren't in the females' top 500:
 setdiff(female.words[1:500], male.words[1:500])
 
-## ----cache=TRUE----------------------------------------------------------
+## ----cache=TRUE, warning=FALSE, message=FALSE----------------------------
 set.seed(76)
 sample(1:10)
 set.seed(76)
