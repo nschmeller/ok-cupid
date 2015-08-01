@@ -7,10 +7,12 @@ Data and code for "OkCupid Profile Data for Introductory Statistics and Data Sci
 
 * `JSE.bib`:  bibliography file
 * `JSE.pdf`:  PDF of document
-* `JSE.Rnw`:  R Sweave document to recreate `JSE.pdf`
+* `JSE.Rnw`:  R Sweave document to recreate `JSE.pdf`. 
 * `JSE.R`:  R code used in document
 * `okcupid_codebook.txt`:  codebook for all variables
 * `profiles.csv.zip`: CSV file of profile data (unzip this first)
+
+Note the `JSE.Rnw` Sweave document was compiled using the `knitr` package. In RStudio, go to "Tools" -> "Project Options" -> "Sweave" -> "Weave Rnw files using" and select knitr.  
 
 ## Preview
 

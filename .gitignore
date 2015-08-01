@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+cache/
+figure/
+README_cache/
+*.log
+*-concordance.tex
+*.synctex.gz
+*.Rproj
+*.bbl
+profiles.csv
+JSE.tex
+JSE_publication.PDF
+README.html
