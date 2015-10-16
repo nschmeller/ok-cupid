@@ -4,6 +4,23 @@ author: "Albert Y. Kim and Adriana Escobedo-Land"
 output:
   html_document:
     keep_md: yes
+references:
+- id: Kim2015
+  title: OkCupid Profile Data for Introductory Statistics and Data Science Courses
+  author:
+  - family: Kim
+    given: Albert Y. Kim
+  - family: Escobedo-Land
+    given: Adriana
+  ISSN: 1069-1898
+  volume: 23
+  URL: 'http://www.amstat.org/publications/jse/v23n2/kim.pdf'
+  publisher: American Statistical Association
+  issue: 2
+  type: article-journal
+  issued:
+    year: 2015
+    month: 7
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -13,7 +30,7 @@ suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(knitr))
 ```
 
-Data and code for "OkCupid Profile Data for Introductory Statistics and Data Science Courses":
+Data and code for [OkCupid Profile Data for Introductory Statistics and Data Science Courses](http://www.amstat.org/publications/jse/contents_2015.html) [@Kim2015] .
 
 * `JSE.bib`:  bibliography file
 * `JSE.pdf`:  PDF of document
@@ -32,7 +49,7 @@ Note the `JSE.Rnw` Sweave document was compiled using the `knitr` package. In RS
 profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache}
 profiles.subset <- 
   filter(profiles, height>=55 & height <=80) %>%
   mutate(
@@ -97,4 +114,6 @@ ggplot(data=profiles, aes(x=p.hat)) +
   xlim(c(0,1)) +
   geom_vline(xintercept=0.5, col="red", size=1.2)
 ```
+
+### References
 
