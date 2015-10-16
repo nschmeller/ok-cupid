@@ -3,7 +3,7 @@ Albert Y. Kim and Adriana Escobedo-Land
 
 
 
-Data and code for [OkCupid Profile Data for Introductory Statistics and Data Science Courses](http://www.amstat.org/publications/jse/contents_2015.html) [@Kim2015] .
+Data and code for [OkCupid Profile Data for Introductory Statistics and Data Science Courses](http://www.amstat.org/publications/jse/contents_2015.html) (Journal of Statistics Education July 2015, Volume 23, Number 2).
 
 * `JSE.bib`:  bibliography file
 * `JSE.pdf`:  PDF of document
