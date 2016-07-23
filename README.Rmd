@@ -1,9 +1,7 @@
 ---
 title: "OkCupid Profile Data for Intro Stats and Data Science Courses"
 author: "Albert Y. Kim and Adriana Escobedo-Land"
-output:
-  html_document:
-    keep_md: yes
+output: github_document
 references:
 - id: Kim2015
   title: OkCupid Profile Data for Introductory Statistics and Data Science Courses
@@ -39,7 +37,11 @@ Data and code for [OkCupid Profile Data for Introductory Statistics and Data Sci
 * `okcupid_codebook.txt`:  codebook for all variables
 * `profiles.csv.zip`: CSV file of profile data (unzip this first)
 
-Note the `JSE.Rnw` Sweave document was compiled using the `knitr` package. In RStudio, go to "Tools" -> "Project Options" -> "Sweave" -> "Weave Rnw files using:" and select knitr.  
+Note:
+
+* Permission to use this data set was explicitly granted by OkCupid.
+* Usernames are not included.
+* `JSE.Rnw` Sweave document was compiled using the `knitr` package. In RStudio, go to "Tools" -> "Project Options" -> "Sweave" -> "Weave Rnw files using:" and select knitr.  
 
 ## Preview
 
@@ -114,6 +116,3 @@ ggplot(data=profiles, aes(x=p.hat)) +
   xlim(c(0,1)) +
   geom_vline(xintercept=0.5, col="red", size=1.2)
 ```
-
-### References
-
