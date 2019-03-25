@@ -14,7 +14,7 @@ n <- nrow(profiles)
 
 ## ----cache=TRUE, warning=FALSE, message=FALSE, all_heights, fig.height=4, fig.width=6, fig.cap="Heights of all users.", fig.align='center'----
 require(mosaic)
-favstats(height, data=profiles)
+favstats(profiles$height, data=profiles)
 
 ## ----cache=TRUE, warning=FALSE, message=FALSE----------------------------
 require(dplyr)
