@@ -6,7 +6,7 @@ The repository is largely derived from [this repository](https://github.com/rude
 
 Main change has been addition of SampleAnalysis.ipynb
 
-Please cite the original paper if you use this as a reference.
+Please cite the original author's [paper](http://www.amstat.org/publications/jse/v23n2/kim.pdf) if you use this as a reference.
 
 ----
 
