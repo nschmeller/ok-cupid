@@ -2,11 +2,11 @@
 
 This assignment is for the Princeton University course, COS424: Fundamentals of Machine Learning, Spring 2019. 
 
-The repository is largely derived from [this repository](https://github.com/rudeboybert/JSE_OkCupid) (paper [here](http://www.amstat.org/publications/jse/v23n2/kim.pdf)). Credit to authors Albert Y. Kim and Adriana Escobedo-Land.
+The repository is largely derived from [this repository](https://github.com/rudeboybert/JSE_OkCupid) (paper [here](https://github.com/lujonathanh/cos424-s2019-OKCupid/blob/master/JSE.pdf)). Credit to authors Albert Y. Kim and Adriana Escobedo-Land.
 
 Main change has been addition of SampleAnalysis.ipynb
 
-Please cite the original author's [paper](http://www.amstat.org/publications/jse/v23n2/kim.pdf) if you use this as a reference.
+Please cite the original author's [paper](https://github.com/lujonathanh/cos424-s2019-OKCupid/blob/master/JSE.pdf) if you use this as a reference.
 
 ----
 
