@@ -1,6 +1,4 @@
-# COS424 Assignment 3: OKCupid
-
-This assignment is for the Princeton University course, COS424: Fundamentals of Machine Learning, Spring 2019. 
+# OKCupid
 
 The repository is largely derived from [this repository](https://github.com/rudeboybert/JSE_OkCupid) (paper [here](https://github.com/lujonathanh/cos424-s2019-OKCupid/blob/master/JSE.pdf)). Credit to authors Albert Y. Kim and Adriana Escobedo-Land.
 
